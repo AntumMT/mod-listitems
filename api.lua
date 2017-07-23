@@ -85,7 +85,7 @@ minetest.register_chatcommand('listitems', {
 		
 		if found_names ~= nil then
 			for I in pairs(found_names) do
-				minetest.chat_send_player(player, found_names[I])
+				minetest.chat_send_player(player, '• ' .. found_names[I])
 			end
 		else
 			minetest.chat_send_player(player, 'No registered items found!')
