@@ -87,9 +87,9 @@ minetest.register_chatcommand('listitems', {
 			for I in pairs(found_names) do
 				minetest.chat_send_player(player, '• ' .. found_names[I])
 			end
-		else
-			minetest.chat_send_player(player, 'No registered items found!')
 		end
+		-- Show player number of items listed
+		minetest.chat_send_player(player, tostring(#found_names) .. ' items listed')
 		
 		return true
 	end,
