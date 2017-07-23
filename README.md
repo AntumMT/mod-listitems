@@ -8,6 +8,8 @@
   - Without any parameters, all items registered in game are listed.
   - With parameters, only items matching any of the strings will be listed.
 
+![Screenshot](screenshot.png)
+
 
 ### Licensing
 
