@@ -90,11 +90,15 @@ if bullet_list then
 end
 
 
--- LISTITEMS COMMAND
+-- Custom registration function for chat commands
+local function registerChatCommand(cmd_name, def)
+	listitems.logInfo('Registering chat command "' .. cmd_name .. '"')
+	core.register_chatcommand(cmd_name, def)
+end
 
-listitems.logInfo('Registering chat command "' .. cmd_item .. '"')
 
-core.register_chatcommand(cmd_item, {
+-- listitems command
+registerChatCommand(cmd_item, {
 	params = '[' .. S('string1') .. '] [' .. S('string2') .. '] ...',
 	description = S('List registered items'),
 	func = function(player, param)
