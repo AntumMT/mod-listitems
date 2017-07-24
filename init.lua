@@ -9,8 +9,8 @@
 
 
 listitems = {}
-listitems.modname = minetest.get_current_modname()
-listitems.modpath = minetest.get_modpath(listitems.modname)
+listitems.modname = core.get_current_modname()
+listitems.modpath = core.get_modpath(listitems.modname)
 
 local scripts = {
 	'logging',
