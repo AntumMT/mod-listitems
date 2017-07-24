@@ -12,4 +12,11 @@ listitems = {}
 listitems.modname = minetest.get_current_modname()
 listitems.modpath = minetest.get_modpath(listitems.modname)
 
-dofile(listitems.modpath .. '/api.lua')
+local scripts = {
+	'logging',
+	'api',
+}
+
+for index, script in ipairs(scripts) do
+	dofile(listitems.modpath .. '/' .. script .. '.lua')
+end
