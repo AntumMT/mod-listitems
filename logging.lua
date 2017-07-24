@@ -12,5 +12,11 @@
 
 -- Custom logging function
 function listitems.log(level, msg)
-	core.log(level, '[' .. listitems.modname .. '] ' .. msg)
+	local prefix = '[' .. listitems.modname .. '] '
+	
+	if msg == nil then
+		core.log(prefix .. level)
+	else
+		core.log(level, prefix .. msg)
+	end
 end
