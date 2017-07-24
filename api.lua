@@ -66,9 +66,11 @@ end
 -- Replaces duplicates found in a list
 local function removeListDuplicates(tlist)
 	local cleaned = {}
-	for index, value in ipairs(tlist) do
-		if not listContains(cleaned, value) then
-			table.insert(cleaned, value)
+	if tlist ~= nil then
+		for index, value in ipairs(tlist) do
+			if not listContains(cleaned, value) then
+				table.insert(cleaned, value)
+			end
 		end
 	end
 	
