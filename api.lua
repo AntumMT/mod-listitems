@@ -78,6 +78,26 @@ local function removeListDuplicates(tlist)
 end
 
 
+-- Searches & formats list for matching strings
+local function formatMatching(nlist, params)
+	local matching = {}
+	
+	-- Use entire list if no parameters supplied
+	if next(params) == nil then
+		matching = nlist
+	else
+		-- Fill matching list
+		for index in pairs(nlist) do
+			if compareSubstringList(params, string.lower(nlist[index])) then
+				table.insert(matching, nlist[index])
+			end
+		end
+	end
+	
+	return matching
+end
+
+
 local bullet_list = core.settings:get_bool('listitems.bullet_list')
 if bullet_list == nil then
 	-- Default is true
@@ -114,23 +134,11 @@ registerChatCommand(cmd_item, {
 	params = '[' .. S('string1') .. '] [' .. S('string2') .. '] ...',
 	description = S('List registered items'),
 	func = function(player, param)
-		-- Make all parameters lowercase for case-insensitive matching
+		-- Split parameters into case-insensitive list & remove duplicates
 		param = removeListDuplicates(string.split(string.lower(param), ' '))
 		
 		local all_names = getRegisteredItemNames()
-		local found_names = {}
-		
-		-- Check if table is empty
-		if next(param) == nil then
-			found_names = all_names
-		else
-			-- Need to fill item list
-			for I in pairs(all_names) do
-				if compareSubstringList(param, string.lower(all_names[I])) then
-					table.insert(found_names, all_names[I])
-				end
-			end
-		end
+		local found_names = formatMatching(all_names, param)
 		
 		displayList(player, found_names)
 		
