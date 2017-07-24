@@ -20,3 +20,9 @@ function listitems.log(level, msg)
 		core.log(level, prefix .. msg)
 	end
 end
+
+
+-- Custom "info" level logging function
+function listitems.logInfo(msg)
+	listitems.log('info', msg)
+end

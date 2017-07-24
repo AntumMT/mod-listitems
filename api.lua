@@ -90,7 +90,7 @@ end
 
 -- LISTITEMS COMMAND
 
-listitems.log('info', 'Registering chat command "' .. cmd_item .. '"')
+listitems.logInfo('Registering chat command "' .. cmd_item .. '"')
 
 core.register_chatcommand(cmd_item, {
 	params = '[' .. S('string1') .. '] [' .. S('string2') .. '] ...',
