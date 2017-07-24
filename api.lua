@@ -10,7 +10,7 @@
 
 -- Boilerplate to support localized strings if intllib mod is installed.
 local S
-if minetest.global_exists('intllib') then
+if core.global_exists('intllib') then
 	if intllib.make_gettext_pair then
 		S = intllib.make_gettext_pair()
 	else
@@ -28,7 +28,7 @@ local list_command = S('listitems')
 -- Retrieves a simplified table containing string names of registered items
 local function getRegisteredItemNames()
 	local item_names = {}
-	for item, def in pairs(minetest.registered_items) do
+	for item, def in pairs(core.registered_items) do
 		table.insert(item_names, item)
 	end
 	
@@ -76,8 +76,6 @@ local function removeListDuplicates(tlist)
 end
 
 
-minetest.log('action', '[listitems] Registering chat command "' .. list_command .. '"')
-
 local bullet_list = core.settings:get_bool('listitems.bullet_list')
 if bullet_list == nil then
 	-- Default is true
@@ -89,7 +87,9 @@ if bullet_list then
 	bullet = S('•') .. ' '
 end
 
-minetest.register_chatcommand(list_command, {
+core.log('action', '[listitems] Registering chat command "' .. list_command .. '"')
+
+core.register_chatcommand(list_command, {
 	params = '[' .. S('string1') .. '] [' .. S('string2') .. '] ...',
 	description = S('List registered items'),
 	func = function(player, param)
@@ -113,11 +113,11 @@ minetest.register_chatcommand(list_command, {
 		
 		if found_names ~= nil then
 			for I in pairs(found_names) do
-				minetest.chat_send_player(player, bullet .. found_names[I])
+				core.chat_send_player(player, bullet .. found_names[I])
 			end
 		end
 		-- Show player number of items listed
-		minetest.chat_send_player(player, S('Items listed:') .. ' ' .. tostring(#found_names))
+		core.chat_send_player(player, S('Items listed:') .. ' ' .. tostring(#found_names))
 		
 		return true
 	end,
