@@ -26,3 +26,11 @@ end
 function listitems.logInfo(msg)
 	listitems.log('info', msg)
 end
+
+
+-- Custom debug logging function
+function listitems.logDebug(msg)
+	if listitems.debug then
+		core.log('[DEBUG: ' .. listitems.modname .. '] ' .. msg)
+	end
+end
