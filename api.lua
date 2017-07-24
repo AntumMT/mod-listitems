@@ -90,6 +90,18 @@ if bullet_list then
 end
 
 
+-- Displays list to player
+local function displayList(player, dlist)
+	if dlist ~= nil then
+		for i, n in ipairs(dlist) do
+			core.chat_send_player(player, bullet .. n)
+		end
+	end
+	-- Show player number of items listed
+	core.chat_send_player(player, S('Items listed:') .. ' ' .. tostring(#dlist))
+end
+
+
 -- Custom registration function for chat commands
 local function registerChatCommand(cmd_name, def)
 	listitems.logInfo('Registering chat command "' .. cmd_name .. '"')
@@ -120,13 +132,7 @@ registerChatCommand(cmd_item, {
 			end
 		end
 		
-		if found_names ~= nil then
-			for I in pairs(found_names) do
-				core.chat_send_player(player, bullet .. found_names[I])
-			end
-		end
-		-- Show player number of items listed
-		core.chat_send_player(player, S('Items listed:') .. ' ' .. tostring(#found_names))
+		displayList(player, found_names)
 		
 		return true
 	end,
