@@ -22,7 +22,7 @@ end
 
 
 -- Invoking command string
-local list_command = S('listitems')
+local cmd_item = S('listitems')
 
 
 -- Retrieves a simplified table containing string names of registered items
@@ -87,9 +87,9 @@ if bullet_list then
 	bullet = S('•') .. ' '
 end
 
-core.log('action', '[listitems] Registering chat command "' .. list_command .. '"')
+core.log('action', '[listitems] Registering chat command "' .. cmd_item .. '"')
 
-core.register_chatcommand(list_command, {
+core.register_chatcommand(cmd_item, {
 	params = '[' .. S('string1') .. '] [' .. S('string2') .. '] ...',
 	description = S('List registered items'),
 	func = function(player, param)
