@@ -117,17 +117,17 @@ registerChatCommand(cmd_item, {
 		-- Make all parameters lowercase for case-insensitive matching
 		param = removeListDuplicates(string.split(string.lower(param), ' '))
 		
-		local all_item_names = getRegisteredItemNames()
+		local all_names = getRegisteredItemNames()
 		local found_names = {}
 		
 		-- Check if table is empty
 		if next(param) == nil then
-			found_names = all_item_names
+			found_names = all_names
 		else
 			-- Need to fill item list
-			for I in pairs(all_item_names) do
-				if compareSubstringList(param, string.lower(all_item_names[I])) then
-					table.insert(found_names, all_item_names[I])
+			for I in pairs(all_names) do
+				if compareSubstringList(param, string.lower(all_names[I])) then
+					table.insert(found_names, all_names[I])
 				end
 			end
 		end
