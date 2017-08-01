@@ -21,15 +21,17 @@ else
 end
 
 
--- Invoking command string
+-- Invoking command strings
 local cmd_item = S('listitems')
+--local cmd_entity = S('listentities')  -- UNUSED
 
 
 --- Valid switches.
 -- 
 -- @table
 -- @field -v Display descriptions.
-local known_switches = {'-v',}
+-- @field -d Include search within descriptions.
+local known_switches = {'-v', '-d',}
 
 
 -- Checks if a parameter is a switch beginning with "-"
@@ -82,6 +84,17 @@ local function getRegisteredItems()
 	
 	return items_sorted
 end
+
+
+--[[ UNUSED
+-- Retrieves a simplified table containing string names of registered entities
+-- TODO: Unfinished
+local function getRegisteredEntityNames()
+	local entity_names = {}
+	
+	return entity_names
+end
+]]
 
 
 -- Compares a string from a list of substrings
@@ -149,11 +162,17 @@ local function formatMatching(player, nlist, params, switches)
 	local matching = {}
 	
 	local show_descr = false
+	local search_descr = false
 	if switches ~= nil then
 		show_descr = listContains(switches, '-v')
+		search_descr = listContains(switches, '-d')
 	end
 	
-	core.chat_send_player(player, '\n' .. S('Searching in item names ...'))
+	if search_descr then
+		core.chat_send_player(player, '\n' .. S('Searching in item names and descriptions ...'))
+	else
+		core.chat_send_player(player, '\n' .. S('Searching in item names ...'))
+	end
 	
 	if params == nil then
 		params = {}
@@ -242,3 +261,25 @@ registerChatCommand(cmd_item, {
 		return true
 	end,
 })
+
+
+--[[
+-- listentities command
+registerChatCommand(cmd_entity, {
+	params = nil,
+	description = S('List registered entities'),
+	func = function(player, param)
+		-- Split parameters into list & make all lowercase for case-insensitive matching
+		param = string.split(string.lower(param), ' ')
+		
+		param = removeListDuplicates(param)
+		
+		local all_names = getRegisteredEntityNames()
+		local found_names = formatMatching(all_names, param)
+		
+		displayList(player, found_names)
+		
+		return true
+	end,
+})
+]]

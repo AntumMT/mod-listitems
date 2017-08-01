@@ -11,6 +11,11 @@
   - With parameters, only items matching any of the strings will be listed.
   - Options:
     - ***-v:*** Display description after item name
+    - ***-d:*** Search within description as well as item name
+
+#### List Entities:
+- Chat command to list registered entities.
+- Invocation: */listentities*
 
 ![Screenshot](screenshot.png)
 

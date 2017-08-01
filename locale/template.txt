@@ -1,8 +1,9 @@
 # Translation by
 
 
-## Invoking command (remove this line to use default "listitems")
+## Invoking command strings (remove these lines to keep defaults: "listitems" & "listentities")
 listitems =
+listentities =
 
 ## Help output description
 List registered items =
