@@ -162,7 +162,7 @@ local function formatMatching(player, nlist, params, switches)
 	-- Use entire list if no parameters supplied
 	if next(params) == nil then
 		for i, item in ipairs(nlist) do
-			if show_descr then
+			if show_descr and item.descr ~= nil then
 				table.insert(matching, item.name .. ' (' .. item.descr .. ')')
 			else
 				table.insert(matching, item.name)
@@ -170,12 +170,12 @@ local function formatMatching(player, nlist, params, switches)
 		end
 	else
 		-- Fill matching list
-		for index in pairs(nlist) do
-			if compareSubstringList(params, string.lower(nlist[index].name)) then
-				if show_descr then
-					table.insert(matching, nlist[index].name .. ' (' .. nlist[index].descr .. ')')
+		for i, item in ipairs(nlist) do
+			if compareSubstringList(params, string.lower(item.name)) then
+				if show_descr and item.descr ~= nil then
+					table.insert(matching, item.name .. ' (' .. item.descr .. ')')
 				else
-					table.insert(matching, nlist[index].name)
+					table.insert(matching, item.name)
 				end
 			end
 		end
