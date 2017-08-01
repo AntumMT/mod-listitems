@@ -161,11 +161,11 @@ local function formatMatching(player, nlist, params, switches)
 	
 	-- Use entire list if no parameters supplied
 	if next(params) == nil then
-		if not show_descr then
-			matching = nlist
-		else
-			for i, item in ipairs(nlist) do
-				table.insert(matching, nlist.name .. ' (' .. nlist.descr .. ')')
+		for i, item in ipairs(nlist) do
+			if show_descr then
+				table.insert(matching, item.name .. ' (' .. item.descr .. ')')
+			else
+				table.insert(matching, item.name)
 			end
 		end
 	else
