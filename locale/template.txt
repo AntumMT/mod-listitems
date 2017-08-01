@@ -8,8 +8,16 @@ listitems =
 List registered items =
 
 ## Help output parameters
+options =
 string1 =
 string2 =
+
+## Player used unrecognized switch
+Unknown option: =
+
+## Search description
+Searching in item names ... =
+Searching in item names and descriptions ... =
 
 ## Number of items listed
 Items listed: =
