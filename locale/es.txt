@@ -8,8 +8,16 @@ listitems = listararticulos
 List registered items = Listar los artículos registrados
 
 ## Help output parameters
+options = opciones
 string1 = cadena1
 string2 = cadena2
+
+## Player used unrecognized switch
+Unknown option: = Opción desconocida:
+
+## Search description
+Searching in item names ... = Buscando en los nombres de los artículos ...
+Searching in item names and descriptions ... = Buscando en los nombres y descripciones de los artículos ...
 
 ## Number of items listed
 Items listed: = Artículos enumerados:
