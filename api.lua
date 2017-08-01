@@ -21,8 +21,9 @@ else
 end
 
 
--- Invoking command string
+-- Invoking command strings
 local cmd_item = S('listitems')
+local cmd_entity = S('listentities')
 
 
 --- Valid switches.
@@ -58,7 +59,6 @@ end
 -- FIXME: More efficient method to sort output?
 local function getRegisteredItems()
 	local i_names = {}
-	--local i_descriptions = {}
 	local items = {}
 	
 	for name, def in pairs(core.registered_items) do
@@ -81,6 +81,32 @@ local function getRegisteredItems()
 	end
 	
 	return items_sorted
+end
+
+
+-- Retrieves a simplified table containing string names of registered entities
+-- TODO: Unfinished
+local function getRegisteredEntities()
+	local e_names = {}
+	local entities = {}
+	
+	for name, def in pairs(core.registered_entities) do
+		table.insert(entities, {name=name, descr=def.description,})
+		table.insert(e_names, name)
+	end
+	
+	table.sort(e_names)
+	
+	local entities_sorted = {}
+	for i, name in ipairs(e_names) do
+		for I, entity in ipairs(entities) do
+			if entity.name == name then
+				table.insert(entities_sorted, entity)
+			end
+		end
+	end
+	
+	return entities_sorted
 end
 
 
@@ -153,7 +179,7 @@ local function formatMatching(player, nlist, params, switches)
 		show_descr = listContains(switches, '-v')
 	end
 	
-	core.chat_send_player(player, '\n' .. S('Searching in item names ...'))
+	core.chat_send_player(player, '\n' .. S('Searching in names ...'))
 	
 	if params == nil then
 		params = {}
@@ -205,7 +231,7 @@ local function displayList(player, dlist)
 		end
 	end
 	-- Show player number of items listed
-	core.chat_send_player(player, S('Items listed:') .. ' ' .. tostring(#dlist))
+	core.chat_send_player(player, S('Objects listed:') .. ' ' .. tostring(#dlist))
 end
 
 
@@ -238,6 +264,34 @@ registerChatCommand(cmd_item, {
 		local matched_items = formatMatching(player, all_items, param, switches)
 		
 		displayList(player, matched_items)
+		
+		return true
+	end,
+})
+
+
+-- listentities command
+registerChatCommand(cmd_entity, {
+	params = '[' .. S('options') .. '] [' .. S('string1') .. '] [' .. S('string2') .. '] ...',
+	description = S('List registered entities'),
+	func = function(player, param)
+		-- Split parameters into case-insensitive list & remove duplicates
+		param = removeListDuplicates(string.split(string.lower(param), ' '))
+		local switches = extractSwitches(param)
+		param = switches[2]
+		switches = switches[1]
+		
+		for i, s in ipairs(switches) do
+			if not listContains(known_switches, s) then
+				core.chat_send_player(player, S('Unknown option:') .. ' ' .. s)
+				return false
+			end
+		end
+		
+		local all_entities = getRegisteredEntities()
+		local matched_entities = formatMatching(player, all_entities, param, switches)
+		
+		displayList(player, matched_entities)
 		
 		return true
 	end,

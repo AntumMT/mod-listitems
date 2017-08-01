@@ -1,11 +1,13 @@
 # Translation by
 
 
-## Invoking command (remove this line to use default "listitems")
+## Invoking command strings (remove these lines to keep defaults: "listitems" & "listentities")
 listitems =
+listentities =
 
 ## Help output description
 List registered items =
+List registered entities =
 
 ## Help output parameters
 options =
@@ -16,11 +18,11 @@ string2 =
 Unknown option: =
 
 ## Search description
-Searching in item names ... =
-Searching in item names and descriptions ... =
+Searching in names ... =
+Searching in names and descriptions ... =
 
 ## Number of items listed
-Items listed: =
+Objects listed: =
 
 ## Bullet (change this if there are problems displaying the raw character "•")
 • =
