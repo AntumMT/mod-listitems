@@ -25,16 +25,62 @@ end
 local cmd_item = S('listitems')
 
 
--- Retrieves a simplified table containing string names of registered items
-local function getRegisteredItemNames()
-	local item_names = {}
-	for item, def in pairs(core.registered_items) do
-		table.insert(item_names, item)
+--- Valid switches.
+-- 
+-- @table
+-- @field -v Display descriptions.
+local known_switches = {'-v',}
+
+
+-- Checks if a parameter is a switch beginning with "-"
+local function isSwitch(param)
+	if param then
+		return #param == 2 and string.find(param, '-') == 1
 	end
 	
-	table.sort(item_names)
+	return false
+end
+
+
+-- Checks if value is contained in list
+local function listContains(tlist, v)
+	for index, value in ipairs(tlist) do
+		if v == value then
+			return true
+		end
+	end
 	
-	return item_names
+	return false
+end
+
+
+-- Retrieves a simplified table containing string names of registered items
+-- FIXME: More efficient method to sort output?
+local function getRegisteredItems()
+	local i_names = {}
+	--local i_descriptions = {}
+	local items = {}
+	
+	for name, def in pairs(core.registered_items) do
+		table.insert(items, {name=name, descr=def.description,})
+	end
+	
+	for i, item in ipairs(items) do
+		table.insert(i_names, item.name)
+	end
+	
+	table.sort(i_names)
+	
+	local items_sorted = {}
+	for i, name in ipairs(i_names) do
+		for I, item in ipairs(items) do
+			if item.name == name then
+				table.insert(items_sorted, item)
+			end
+		end
+	end
+	
+	return items_sorted
 end
 
 
@@ -51,15 +97,35 @@ local function compareSubstringList(ss_list, s_value)
 end
 
 
--- Checks if value is contained in list
-local function listContains(tlist, v)
-	for index, value in ipairs(tlist) do
-		if v == value then
-			return true
+-- Extracts switches prefixed with "-" from parameter list
+local function extractSwitches(plist)
+	local switches = {}
+	local params = {}
+	if plist ~= nil then
+		for i, p in ipairs(plist) do
+			-- Check if string starts with "-"
+			if isSwitch(p) then
+				table.insert(switches, p)
+			else
+				table.insert(params, p)
+			end
+		end
+		
+		-- DEBUG:
+		if listitems.debug then
+			listitems.logDebug('Switches:')
+			for i, o in ipairs(switches) do
+				listitems.logDebug('  ' .. o)
+			end
+			
+			listitems.logDebug('Parameters:')
+			for i, p in ipairs(params) do
+				listitems.logDebug('  ' .. p)
+			end
 		end
 	end
 	
-	return false
+	return {switches, params}
 end
 
 
@@ -79,17 +145,38 @@ end
 
 
 -- Searches & formats list for matching strings
-local function formatMatching(nlist, params)
+local function formatMatching(player, nlist, params, switches)
 	local matching = {}
+	
+	local show_descr = false
+	if switches ~= nil then
+		show_descr = listContains(switches, '-v')
+	end
+	
+	core.chat_send_player(player, '\n' .. S('Searching in item names ...'))
+	
+	if params == nil then
+		params = {}
+	end
 	
 	-- Use entire list if no parameters supplied
 	if next(params) == nil then
-		matching = nlist
+		if not show_descr then
+			matching = nlist
+		else
+			for i, item in ipairs(nlist) do
+				table.insert(matching, nlist.name .. ' (' .. nlist.descr .. ')')
+			end
+		end
 	else
 		-- Fill matching list
 		for index in pairs(nlist) do
-			if compareSubstringList(params, string.lower(nlist[index])) then
-				table.insert(matching, nlist[index])
+			if compareSubstringList(params, string.lower(nlist[index].name)) then
+				if show_descr then
+					table.insert(matching, nlist[index].name .. ' (' .. nlist[index].descr .. ')')
+				else
+					table.insert(matching, nlist[index].name)
+				end
 			end
 		end
 	end
@@ -131,16 +218,26 @@ end
 
 -- listitems command
 registerChatCommand(cmd_item, {
-	params = '[' .. S('string1') .. '] [' .. S('string2') .. '] ...',
+	params = '[' .. S('options') .. '] [' .. S('string1') .. '] [' .. S('string2') .. '] ...',
 	description = S('List registered items'),
 	func = function(player, param)
 		-- Split parameters into case-insensitive list & remove duplicates
 		param = removeListDuplicates(string.split(string.lower(param), ' '))
+		local switches = extractSwitches(param)
+		param = switches[2]
+		switches = switches[1]
 		
-		local all_names = getRegisteredItemNames()
-		local found_names = formatMatching(all_names, param)
+		for i, s in ipairs(switches) do
+			if not listContains(known_switches, s) then
+				core.chat_send_player(player, S('Unknown option:') .. ' ' .. s)
+				return false
+			end
+		end
 		
-		displayList(player, found_names)
+		local all_items = getRegisteredItems()
+		local matched_items = formatMatching(player, all_items, param, switches)
+		
+		displayList(player, matched_items)
 		
 		return true
 	end,
