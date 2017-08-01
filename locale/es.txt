@@ -1,11 +1,13 @@
 # Translation by Jordan Irwin (AntumDeluge)
 
 
-## Invoking command (remove this line to use default "listitems")
+## Invoking command strings (remove these lines to keep defaults: "listitems" & "listentities")
 listitems = listararticulos
+listentities = listarentidades
 
 ## Help output description
 List registered items = Listar los artículos registrados
+List registered entities = Listar los entidades registrados
 
 ## Help output parameters
 options = opciones
@@ -16,8 +18,8 @@ string2 = cadena2
 Unknown option: = Opción desconocida:
 
 ## Search description
-Searching in item names ... = Buscando en los nombres de los artículos ...
-Searching in item names and descriptions ... = Buscando en los nombres y descripciones de los artículos ...
+Searching in names ... = Buscando en los nombres ...
+Searching in names and descriptions ... = Buscando en los nombres y descripciones ...
 
 ## Number of items listed
-Items listed: = Artículos enumerados:
+Objects listed: = Artículos enumerados:
