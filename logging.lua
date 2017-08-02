@@ -28,6 +28,12 @@ function listitems.logInfo(msg)
 end
 
 
+-- Custom "warning" level logging function
+function listitems.logWarn(msg)
+	listitems.log('warning', msg)
+end
+
+
 -- Custom debug logging function
 function listitems.logDebug(msg)
 	if listitems.debug then
