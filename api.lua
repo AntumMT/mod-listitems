@@ -21,11 +21,6 @@ else
 end
 
 
--- Invoking command strings
-local cmd_item = S('listitems')
-local cmd_entity = S('listentities')
-
-
 --- Valid switches.
 -- 
 -- @table
@@ -243,7 +238,7 @@ end
 
 
 -- listitems command
-registerChatCommand(cmd_item, {
+registerChatCommand('listitems', {
 	params = '[' .. S('options') .. '] [' .. S('string1') .. '] [' .. S('string2') .. '] ...',
 	description = S('List registered items'),
 	func = function(player, param)
@@ -271,7 +266,7 @@ registerChatCommand(cmd_item, {
 
 
 -- listentities command
-registerChatCommand(cmd_entity, {
+registerChatCommand('listentities', {
 	params = '[' .. S('options') .. '] [' .. S('string1') .. '] [' .. S('string2') .. '] ...',
 	description = S('List registered entities'),
 	func = function(player, param)

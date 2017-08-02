@@ -1,10 +1,6 @@
 # Translation by Jordan Irwin (AntumDeluge)
 
 
-## Invoking command strings (remove these lines to keep defaults: "listitems" & "listentities")
-listitems = listararticulos
-listentities = listarentidades
-
 ## Help output description
 List registered items = Listar los artículos registrados
 List registered entities = Listar los entidades registrados

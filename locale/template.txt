@@ -1,10 +1,6 @@
 # Translation by
 
 
-## Invoking command strings (remove these lines to keep defaults: "listitems" & "listentities")
-listitems =
-listentities =
-
 ## Help output description
 List registered items =
 List registered entities =
