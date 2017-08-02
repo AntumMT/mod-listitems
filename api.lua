@@ -228,10 +228,11 @@ end
 
 
 -- listitems base function
-function listitems.list(player, param, l_type)
+function listitems.list(player, param, l_type, lower)
 	if l_type == nil then
 		l_type = 'items'
 	end
+	lower = lower == nil or lower == true
 	
 	local types = {'items', 'entities',}
 	if not listContains(types, l_type) then
@@ -239,8 +240,14 @@ function listitems.list(player, param, l_type)
 		return false
 	end
 	
-	-- Split parameters into case-insensitive list & remove duplicates
-	param = removeListDuplicates(string.split(string.lower(param), ' '))
+	if lower then
+		-- Make parameters case-insensitive
+		-- FIXME: Switches should not be case-insensitive
+		param = string.lower(param)
+	end
+	
+	-- Split parameters into list & remove duplicates
+	param = removeListDuplicates(string.split(param, ' '))
 	local switches = extractSwitches(param)
 	param = switches[2]
 	switches = switches[1]
