@@ -105,6 +105,20 @@ local function getRegisteredEntities()
 end
 
 
+-- Retrieves a simplified table containing string names of registered items or entities
+local function getRegistered(r_type)
+	if r_type == nil then
+		r_type = 'items'
+	end
+	
+	if r_type == 'items' then
+		return getRegisteredItems()
+	end
+	
+	return getRegisteredEntities()
+end
+
+
 -- Compares a string from a list of substrings
 local function compareSubstringList(ss_list, s_value)
 	for index, substring in ipairs(ss_list) do
