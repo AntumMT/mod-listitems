@@ -239,7 +239,7 @@ end
 
 -- listitems command
 registerChatCommand('listitems', {
-	params = '[' .. S('options') .. '] [' .. S('string1') .. '] [' .. S('string2') .. '] ...',
+	params = '[-v] [' .. S('string1') .. '] [' .. S('string2') .. '] ...',
 	description = S('List registered items'),
 	func = function(player, param)
 		-- Split parameters into case-insensitive list & remove duplicates
