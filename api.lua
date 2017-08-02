@@ -147,7 +147,10 @@ end
 
 
 -- Searches & formats list for matching strings
-local function formatMatching(player, nlist, params, switches)
+local function formatMatching(player, nlist, params, switches, lower)
+	-- Defaults to case-insensitive
+	lower = lower == nil or lower == true
+	
 	local matching = {}
 	
 	local show_descr = false
@@ -173,7 +176,13 @@ local function formatMatching(player, nlist, params, switches)
 	else
 		-- Fill matching list
 		for i, item in ipairs(nlist) do
-			if compareSubstringList(params, string.lower(item.name)) then
+			local name = item.name
+			-- Case-insensitive matching
+			if lower then
+				name = string.lower(name)
+			end
+			
+			if compareSubstringList(params, name) then
 				if show_descr and item.descr ~= nil then
 					table.insert(matching, item.name .. ' (' .. item.descr .. ')')
 				else
