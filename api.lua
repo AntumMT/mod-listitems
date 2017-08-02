@@ -228,7 +228,7 @@ end
 
 
 -- listitems base function
-function listitems.list(player, param, l_type, lower)
+function listitems.list(player, params, l_type, lower)
 	if l_type == nil then
 		l_type = 'items'
 	end
@@ -243,13 +243,13 @@ function listitems.list(player, param, l_type, lower)
 	if lower then
 		-- Make parameters case-insensitive
 		-- FIXME: Switches should not be case-insensitive
-		param = string.lower(param)
+		params = string.lower(params)
 	end
 	
 	-- Split parameters into list & remove duplicates
-	param = removeListDuplicates(string.split(param, ' '))
-	local switches = extractSwitches(param)
-	param = switches[2]
+	params = removeListDuplicates(string.split(params, ' '))
+	local switches = extractSwitches(params)
+	params = switches[2]
 	switches = switches[1]
 	
 	for i, s in ipairs(switches) do
@@ -260,7 +260,7 @@ function listitems.list(player, param, l_type, lower)
 	end
 	
 	all_objects = getRegistered(l_type)
-	local matched_items = formatMatching(player, all_objects, param, switches)
+	local matched_items = formatMatching(player, all_objects, params, switches)
 	
 	displayList(player, matched_items)
 	
