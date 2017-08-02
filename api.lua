@@ -251,30 +251,46 @@ local function registerChatCommand(cmd_name, def)
 end
 
 
+-- listitems base function
+function listitems.list(player, param, l_type)
+	if l_type == nil then
+		l_type = 'items'
+	end
+	
+	local types = {'items', 'entities',}
+	if not listContains(types, l_type) then
+		listitems.logWarn('listitems.listitems called with unknown list type: ' .. tostring(l_type))
+		return false
+	end
+	
+	-- Split parameters into case-insensitive list & remove duplicates
+	param = removeListDuplicates(string.split(string.lower(param), ' '))
+	local switches = extractSwitches(param)
+	param = switches[2]
+	switches = switches[1]
+	
+	for i, s in ipairs(switches) do
+		if not listContains(known_switches, s) then
+			core.chat_send_player(player, S('Unknown option:') .. ' ' .. s)
+			return false
+		end
+	end
+	
+	all_objects = getRegistered(l_type)
+	local matched_items = formatMatching(player, all_objects, param, switches)
+	
+	displayList(player, matched_items)
+	
+	return true
+end
+
+
 -- listitems command
 registerChatCommand('listitems', {
 	params = '[-v] [' .. S('string1') .. '] [' .. S('string2') .. '] ...',
 	description = S('List registered items'),
 	func = function(player, param)
-		-- Split parameters into case-insensitive list & remove duplicates
-		param = removeListDuplicates(string.split(string.lower(param), ' '))
-		local switches = extractSwitches(param)
-		param = switches[2]
-		switches = switches[1]
-		
-		for i, s in ipairs(switches) do
-			if not listContains(known_switches, s) then
-				core.chat_send_player(player, S('Unknown option:') .. ' ' .. s)
-				return false
-			end
-		end
-		
-		local all_items = getRegisteredItems()
-		local matched_items = formatMatching(player, all_items, param, switches)
-		
-		displayList(player, matched_items)
-		
-		return true
+		return listitems.list(player, param, 'items')
 	end,
 })
 
@@ -284,24 +300,6 @@ registerChatCommand('listentities', {
 	params = '[' .. S('options') .. '] [' .. S('string1') .. '] [' .. S('string2') .. '] ...',
 	description = S('List registered entities'),
 	func = function(player, param)
-		-- Split parameters into case-insensitive list & remove duplicates
-		param = removeListDuplicates(string.split(string.lower(param), ' '))
-		local switches = extractSwitches(param)
-		param = switches[2]
-		switches = switches[1]
-		
-		for i, s in ipairs(switches) do
-			if not listContains(known_switches, s) then
-				core.chat_send_player(player, S('Unknown option:') .. ' ' .. s)
-				return false
-			end
-		end
-		
-		local all_entities = getRegisteredEntities()
-		local matched_entities = formatMatching(player, all_entities, param, switches)
-		
-		displayList(player, matched_entities)
-		
-		return true
+		return listitems.list(player, param, 'entities')
 	end,
 })
