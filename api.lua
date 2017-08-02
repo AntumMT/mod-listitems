@@ -50,72 +50,39 @@ local function listContains(tlist, v)
 end
 
 
--- Retrieves a simplified table containing string names of registered items
--- FIXME: More efficient method to sort output?
-local function getRegisteredItems()
-	local i_names = {}
-	local items = {}
-	
-	for name, def in pairs(core.registered_items) do
-		table.insert(items, {name=name, descr=def.description,})
-	end
-	
-	for i, item in ipairs(items) do
-		table.insert(i_names, item.name)
-	end
-	
-	table.sort(i_names)
-	
-	local items_sorted = {}
-	for i, name in ipairs(i_names) do
-		for I, item in ipairs(items) do
-			if item.name == name then
-				table.insert(items_sorted, item)
-			end
-		end
-	end
-	
-	return items_sorted
-end
-
-
--- Retrieves a simplified table containing string names of registered entities
--- TODO: Unfinished
-local function getRegisteredEntities()
-	local e_names = {}
-	local entities = {}
-	
-	for name, def in pairs(core.registered_entities) do
-		table.insert(entities, {name=name, descr=def.description,})
-		table.insert(e_names, name)
-	end
-	
-	table.sort(e_names)
-	
-	local entities_sorted = {}
-	for i, name in ipairs(e_names) do
-		for I, entity in ipairs(entities) do
-			if entity.name == name then
-				table.insert(entities_sorted, entity)
-			end
-		end
-	end
-	
-	return entities_sorted
-end
-
-
 -- Retrieves a simplified table containing string names of registered items or entities
 local function getRegistered(r_type)
 	if r_type == nil then
 		r_type = 'items'
 	end
 	
+	local o_names = {}
+	local objects = {}
+	local o_temp = {}
+	
 	if r_type == 'items' then
-		return getRegisteredItems()
+		o_temp = core.registered_items
+	else
+		o_temp = core.registered_entities
 	end
 	
-	return getRegisteredEntities()
+	for name, def in pairs(o_temp) do
+		table.insert(objects, {name=name, descr=def.description,})
+		table.insert(o_names, name)
+	end
+	
+	-- FIXME: More efficient method to sort output?
+	table.sort(o_names)
+	local o_sorted = {}
+	for i, name in ipairs(o_names) do
+		for I, entity in ipairs(objects) do
+			if entity.name == name then
+				table.insert(o_sorted, entity)
+			end
+		end
+	end
+	
+	return o_sorted
 end
 
 
