@@ -22,7 +22,7 @@
 ---
 ### **Licensing:**
 
-- MIT (see [LICENSE.txt](LICENSE.txt))
+- [MIT](LICENSE.txt)
 
 
 ---
@@ -30,6 +30,12 @@
 
 - **Depends:** none
 - **Privileges:** none
+
+
+---
+### **Documentation:**
+
+- [API Documentation](https://antummt.github.io/mod-listitems/api)
 
 
 [Minetest]: http://www.minetest.net/

@@ -2,26 +2,16 @@
 
 DOCS="$(dirname $(readlink -f $0))"
 ROOT="$(dirname ${DOCS})"
-
 CONFIG="${DOCS}/config.ld"
-OUT="${DOCS}/api"
 
 cd "${ROOT}"
 
 # Clean old files
-rm -rf "${OUT}"
+rm -rf "${DOCS}/api" "${DOCS}/scripts" "${DOCS}/modules"
 # Create new files
-ldoc -c "${CONFIG}" -d "${OUT}" "${ROOT}"
+ldoc -c "${CONFIG}" -d "${DOCS}" -o "api" "${ROOT}"
 
-# Create basic index file
-INDEX="<html>\n\
-<head>\n\
-<title>List Items Mod for Minetest</title>\n\
-</head>\n\
-\n\
-<body>\n\
-<a href=\"api\">API</a>\n\
-</body>\n\
-</html>\n"
-
-echo -e "${INDEX}" > "${DOCS}/index.html"
+# Remove "html" extension
+if [ -f "${DOCS}/api.html" ]; then
+	mv "${DOCS}/api.html" "${DOCS}/api"
+fi
