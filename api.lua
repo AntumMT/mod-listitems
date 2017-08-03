@@ -272,8 +272,8 @@ end
 registerChatCommand('listitems', {
 	params = '[-v] [' .. S('string1') .. '] [' .. S('string2') .. '] ...',
 	description = S('List registered items'),
-	func = function(player, param)
-		return listitems.list(player, param, 'items')
+	func = function(player, params)
+		return listitems.list(player, params, 'items')
 	end,
 })
 
@@ -282,7 +282,7 @@ registerChatCommand('listitems', {
 registerChatCommand('listentities', {
 	params = '[' .. S('options') .. '] [' .. S('string1') .. '] [' .. S('string2') .. '] ...',
 	description = S('List registered entities'),
-	func = function(player, param)
-		return listitems.list(player, param, 'entities')
+	func = function(player, params)
+		return listitems.list(player, params, 'entities')
 	end,
 })
