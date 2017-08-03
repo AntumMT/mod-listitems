@@ -336,7 +336,7 @@ function listitems.list(player, params, switches, l_type, lower)
 	
 	for i, s in ipairs(switches) do
 		if not listContains(known_switches, s) then
-			core.chat_send_player(player, S('Unknown option:') .. ' ' .. s)
+			core.chat_send_player(player, S('Error: Unknown option:') .. ' ' .. s)
 			return false
 		end
 	end

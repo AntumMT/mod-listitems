@@ -11,8 +11,8 @@ type =
 string1 =
 string2 =
 
-## Player used unrecognized switch
-Unknown option: =
+## Error output
+Error: Unknown option: =
 
 ## Search description
 Searching in names ... =
