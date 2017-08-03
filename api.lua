@@ -360,84 +360,14 @@ function listitems.list(player, params, switches, l_type, lower)
 end
 
 
---- Lists registered items.
+--- Helper function called from within chat commands.
 --
--- @chatcmd listitems
--- @chatparam [-v]
--- @chatparam [string1]
--- @chatparam [string2]
--- @chatparam ...
--- @treturn boolean
-registerChatCommand('listitems', {
-	params = '[-v] [' .. S('string1') .. '] [' .. S('string2') .. '] ...',
-	description = S('List registered items'),
-	func = function(player, params)
-		local switches = extractSwitches(string.split(params, ' '))
-		params = removeListDuplicates(switches[2])
-		switches = switches[1]
-		
-		return listitems.list(player, params, switches, 'items')
-	end,
-})
-
-
---- Lists registered entities.
---
--- @chatcmd listentities
--- @chatparam [-v]
--- @chatparam [string1]
--- @chatparam [string2]
--- @chatparam ...
--- @treturn boolean
-registerChatCommand('listentities', {
-	params = '[-v] [' .. S('string1') .. '] [' .. S('string2') .. '] ...',
-	description = S('List registered entities'),
-	func = function(player, params)
-		local switches = extractSwitches(string.split(params, ' '))
-		params = removeListDuplicates(switches[2])
-		switches = switches[1]
-		
-		return listitems.list(player, params, switches, 'entities')
-	end,
-})
-
-
---- Lists registered ores.
---
--- @chatcmd listores
--- @chatparam [-v]
--- @chatparam [string1]
--- @chatparam [string2]
--- @chatparam ...
--- @treturn boolean
-registerChatCommand('listores', {
-	params = '[-v] [' .. S('string1') .. '] [' .. S('string2') .. '] ...',
-	description = S('List registered ores'),
-	func = function(player, params)
-		local switches = extractSwitches(string.split(params, ' '))
-		params = removeListDuplicates(switches[2])
-		switches = switches[1]
-		
-		return listitems.list(player, params, switches, 'ores')
-	end,
-})
-
-
---- General *list* chat command
---
--- @chatcmd list
--- @chatparam type
--- @chatparam [-v]
--- @chatparam [string1]
--- @chatparam [string2]
--- @chatparam ...
--- @treturn boolean
-registerChatCommand('list', {
-	params = S('type') .. ' [-v] [' .. S('string1') .. '] [' .. S('string2') .. '] ...',
-	description = S('List registered items or entities'),
-	func = function(player, params)
+-- @function list
+-- @local
+-- @param player
+-- @param params
+local function list(player, l_type, params)
 		local switches = string.split(params, ' ')
-		local l_type = table.remove(switches, 1)
 		
 		local type_ok = true
 		if not l_type then
@@ -457,6 +387,91 @@ registerChatCommand('list', {
 		params = removeListDuplicates(switches[2])
 		switches = switches[1]
 		
+		-- DEBUG:
+		if listitems.debug then
+			listitems.log('action', 'List type: ' .. l_type)
+			listitems.log('action', 'Switches:')
+			for i, s in ipairs(switches) do
+				listitems.log('action', '  ' .. s)
+			end
+			listitems.log('action', 'Parameters:')
+			for i, p in ipairs(params) do
+				listitems.log('action', '  ' .. p)
+			end
+		end
+		
 		return listitems.list(player, params, switches, l_type)
+end
+
+
+--- Lists registered items.
+--
+-- @chatcmd listitems
+-- @chatparam [-v]
+-- @chatparam [string1]
+-- @chatparam [string2]
+-- @chatparam ...
+-- @treturn boolean
+registerChatCommand('listitems', {
+	params = '[-v] [' .. S('string1') .. '] [' .. S('string2') .. '] ...',
+	description = S('List registered items'),
+	func = function(player, params)
+		return list(player, 'items', params)
+	end,
+})
+
+
+--- Lists registered entities.
+--
+-- @chatcmd listentities
+-- @chatparam [-v]
+-- @chatparam [string1]
+-- @chatparam [string2]
+-- @chatparam ...
+-- @treturn boolean
+registerChatCommand('listentities', {
+	params = '[-v] [' .. S('string1') .. '] [' .. S('string2') .. '] ...',
+	description = S('List registered entities'),
+	func = function(player, params)
+		return list(player, 'entities', params)
+	end,
+})
+
+
+--- Lists registered ores.
+--
+-- @chatcmd listores
+-- @chatparam [-v]
+-- @chatparam [string1]
+-- @chatparam [string2]
+-- @chatparam ...
+-- @treturn boolean
+registerChatCommand('listores', {
+	params = '[-v] [' .. S('string1') .. '] [' .. S('string2') .. '] ...',
+	description = S('List registered ores'),
+	func = function(player, params)
+		return list(player, 'ores', params)
+	end,
+})
+
+
+--- General *list* chat command
+--
+-- @chatcmd list
+-- @chatparam type
+-- @chatparam [-v]
+-- @chatparam [string1]
+-- @chatparam [string2]
+-- @chatparam ...
+-- @treturn boolean
+registerChatCommand('list', {
+	params = S('type') .. ' [-v] [' .. S('string1') .. '] [' .. S('string2') .. '] ...',
+	description = S('List registered items or entities'),
+	func = function(player, params)
+		local params = string.split(params, ' ')
+		local l_type = table.remove(params, 1)
+		params = table.concat(params, ' ')
+		
+		return list(player, l_type, params)
 	end,
 })
