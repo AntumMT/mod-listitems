@@ -38,4 +38,10 @@
 - [API Documentation](https://antummt.github.io/mod-listitems/api.html)
 
 
+---
+### **TODO:**
+
+- Add ***-d*** option to search within descriptions.
+
+
 [Minetest]: http://www.minetest.net/
