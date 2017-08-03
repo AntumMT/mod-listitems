@@ -411,3 +411,27 @@ registerChatCommand('listores', {
 		return listitems.list(player, params, switches, 'ores')
 	end,
 })
+
+
+--- General *list* chat command
+--
+-- @chatcmd list
+-- @chatparam type
+-- @chatparam [-v]
+-- @chatparam [string1]
+-- @chatparam [string2]
+-- @chatparam ...
+-- @treturn boolean
+registerChatCommand('list', {
+	params = S('type') .. ' [-v] [' .. S('string1') .. '] [' .. S('string2') .. '] ...',
+	description = S('List registered items or entities'),
+	func = function(player, params)
+		local switches = string.split(params, ' ')
+		local l_type = table.remove(switches, 1)
+		switches = extractSwitches(switches)
+		params = removeListDuplicates(switches[2])
+		switches = switches[1]
+		
+		return listitems.list(player, params, switches, l_type)
+	end,
+})
