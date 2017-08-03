@@ -7,6 +7,8 @@
   See: LICENSE.txt
 --]]
 
+--- @script init.lua
+
 
 listitems = {}
 listitems.modname = core.get_current_modname()

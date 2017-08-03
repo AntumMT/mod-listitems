@@ -7,6 +7,10 @@
   See: LICENSE.txt
 --]]
 
+--- List Items API
+-- 
+-- @script api.lua
+
 
 -- Boilerplate to support localized strings if intllib mod is installed.
 local S
@@ -21,14 +25,20 @@ else
 end
 
 
---- Valid switches.
--- 
--- @table
+--- Valid option switches.
+--
+-- @table known_switches
+-- @local
 -- @field -v Display descriptions.
 local known_switches = {'-v',}
 
 
--- Checks if a parameter is a switch beginning with "-"
+--- Checks if a parameter is a switch beginning with "-".
+--
+-- @function isSwitch
+-- @local
+-- @tparam string param String that is checked for dash prefix.
+-- @treturn boolean ***true*** if parameter type is "switch" prefixed with dash.
 local function isSwitch(param)
 	if param then
 		return #param == 2 and string.find(param, '-') == 1
@@ -38,7 +48,13 @@ local function isSwitch(param)
 end
 
 
--- Checks if value is contained in list
+--- Checks if value is contained in list.
+--
+-- @function listContains
+-- @local
+-- @tparam table tlist List to be iterated.
+-- @tparam string v String to search for in list.
+-- @treturn boolean ***true*** if string found within list.
 local function listContains(tlist, v)
 	for index, value in ipairs(tlist) do
 		if v == value then
@@ -50,7 +66,12 @@ local function listContains(tlist, v)
 end
 
 
--- Retrieves a simplified table containing string names of registered items or entities
+--- Retrieves a simplified table containing string names of registered items or entities.
+--
+-- @function getRegistered
+-- @local
+-- @tparam string r_type Must be either "items" or "entities".
+-- @treturn table Either a list of registered item or entity names & descriptions. 
 local function getRegistered(r_type)
 	if r_type == nil then
 		r_type = 'items'
@@ -86,7 +107,12 @@ local function getRegistered(r_type)
 end
 
 
--- Compares a string from a list of substrings
+--- Compares a string from a list of substrings.
+--
+-- @function compareSubstringList
+-- @tparam table ss_list
+-- @tparam string s_value
+-- @treturn boolean
 local function compareSubstringList(ss_list, s_value)
 	for index, substring in ipairs(ss_list) do
 		-- Tests for substring (does not need to match full string)
@@ -99,7 +125,12 @@ local function compareSubstringList(ss_list, s_value)
 end
 
 
--- Extracts switches prefixed with "-" from parameter list
+--- Extracts switches prefixed with "-" from parameter list.
+--
+-- @function extractSwitches
+-- @local
+-- @tparam table plist
+-- @treturn table
 local function extractSwitches(plist)
 	local switches = {}
 	local params = {}
@@ -131,7 +162,12 @@ local function extractSwitches(plist)
 end
 
 
--- Replaces duplicates found in a list
+--- Replaces duplicates found in a list.
+--
+-- @function removeListDuplicates
+-- @local
+-- @tparam table tlist
+-- @treturn table
 local function removeListDuplicates(tlist)
 	local cleaned = {}
 	if tlist ~= nil then
@@ -146,7 +182,16 @@ local function removeListDuplicates(tlist)
 end
 
 
--- Searches & formats list for matching strings
+--- Searches & formats list for matching strings.
+--
+-- @function formatMatching
+-- @local
+-- @tparam string player
+-- @tparam table nlist
+-- @tparam table params
+-- @tparam table switches
+-- @tparam boolean lower
+-- @treturn table
 local function formatMatching(player, nlist, params, switches, lower)
 	-- Defaults to case-insensitive
 	lower = lower == nil or lower == true
@@ -196,6 +241,10 @@ local function formatMatching(player, nlist, params, switches, lower)
 end
 
 
+--- Setting to display a bulleted list.
+--
+-- @setting listitems.bullet_list
+-- @settype boolean
 local bullet_list = core.settings:get_bool('listitems.bullet_list')
 if bullet_list == nil then
 	-- Default is true
@@ -208,7 +257,12 @@ if bullet_list then
 end
 
 
--- Displays list to player
+--- Displays list to player.
+--
+-- @function displayList
+-- @local
+-- @tparam string player
+-- @tparam table dlist
 local function displayList(player, dlist)
 	if dlist ~= nil then
 		for i, n in ipairs(dlist) do
@@ -220,14 +274,29 @@ local function displayList(player, dlist)
 end
 
 
--- Custom registration function for chat commands
+--- Custom registration function for chat commands.
+--
+-- @function registerChatCommand
+-- @local
+-- @tparam string cmd_name
+-- @tparam table def
 local function registerChatCommand(cmd_name, def)
 	listitems.logInfo('Registering chat command "' .. cmd_name .. '"')
 	core.register_chatcommand(cmd_name, def)
 end
 
 
--- listitems base function
+--- *listitems* base function.
+--
+-- Lists registered items or entities.
+--
+-- @function listitems.list
+-- @tparam string player Name of player to receive message output.
+-- @tparam string params String list of parameters.
+-- @tparam string switches String list of switch options for manipulating output.
+-- @tparam string l_type Objects to list (either "items" or "entities").
+-- @tparam boolean lower Case-insensitive matching if ***true***.
+-- @treturn boolean
 function listitems.list(player, params, switches, l_type, lower)
 	-- Default list type is "items"
 	l_type = l_type or 'items'
@@ -274,7 +343,14 @@ function listitems.list(player, params, switches, l_type, lower)
 end
 
 
--- listitems command
+--- Lists registered items.
+--
+-- @chatcmd listitems
+-- @chatparam [-v]
+-- @chatparam [string1]
+-- @chatparam [string2]
+-- @chatparam ...
+-- @treturn boolean
 registerChatCommand('listitems', {
 	params = '[-v] [' .. S('string1') .. '] [' .. S('string2') .. '] ...',
 	description = S('List registered items'),
@@ -288,7 +364,14 @@ registerChatCommand('listitems', {
 })
 
 
--- listentities command
+--- Lists registered entities.
+--
+-- @chatcmd listentities
+-- @chatparam [-v]
+-- @chatparam [string1]
+-- @chatparam [string2]
+-- @chatparam ...
+-- @treturn boolean
 registerChatCommand('listentities', {
 	params = '[' .. S('options') .. '] [' .. S('string1') .. '] [' .. S('string2') .. '] ...',
 	description = S('List registered entities'),
