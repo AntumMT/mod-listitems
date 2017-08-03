@@ -306,8 +306,7 @@ function listitems.list(player, params, switches, l_type, lower)
 	l_type = l_type or 'items'
 	lower = lower == nil or lower == true
 	
-	local types = {'items', 'entities', 'ores',}
-	if not listContains(types, l_type) then
+	if not listContains(known_lists, l_type) then
 		listitems.logWarn('listitems.listitems called with unknown list type: ' .. tostring(l_type))
 		return false
 	end
