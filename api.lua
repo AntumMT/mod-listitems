@@ -228,10 +228,9 @@ end
 
 
 -- listitems base function
-function listitems.list(player, params, l_type, lower)
-	if l_type == nil then
-		l_type = 'items'
-	end
+function listitems.list(player, params, switches, l_type, lower)
+	-- Default list type is "items"
+	l_type = l_type or 'items'
 	lower = lower == nil or lower == true
 	
 	local types = {'items', 'entities',}
@@ -240,17 +239,24 @@ function listitems.list(player, params, l_type, lower)
 		return false
 	end
 	
-	if lower then
-		-- Make parameters case-insensitive
-		-- FIXME: Switches should not be case-insensitive
-		params = string.lower(params)
+	if type(params) == 'string' then
+		if lower then
+			-- Make parameters case-insensitive
+			-- FIXME: Switches should not be case-insensitive
+			params = string.lower(params)
+		end
+		
+		-- Split parameters into list & remove duplicates
+		params = removeListDuplicates(string.split(params, ' '))
+	elseif lower then
+		for i in pairs(params) do
+			params[i] = string.lower(params[i])
+		end
 	end
 	
-	-- Split parameters into list & remove duplicates
-	params = removeListDuplicates(string.split(params, ' '))
-	local switches = extractSwitches(params)
-	params = switches[2]
-	switches = switches[1]
+	if type(switches) == 'string' then
+		switches = string.split(switches, ' ')
+	end
 	
 	for i, s in ipairs(switches) do
 		if not listContains(known_switches, s) then
@@ -273,7 +279,11 @@ registerChatCommand('listitems', {
 	params = '[-v] [' .. S('string1') .. '] [' .. S('string2') .. '] ...',
 	description = S('List registered items'),
 	func = function(player, params)
-		return listitems.list(player, params, 'items')
+		local switches = extractSwitches(string.split(params, ' '))
+		params = removeListDuplicates(switches[2])
+		switches = switches[1]
+		
+		return listitems.list(player, params, switches, 'items')
 	end,
 })
 
@@ -283,6 +293,10 @@ registerChatCommand('listentities', {
 	params = '[' .. S('options') .. '] [' .. S('string1') .. '] [' .. S('string2') .. '] ...',
 	description = S('List registered entities'),
 	func = function(player, params)
-		return listitems.list(player, params, 'entities')
+		local switches = extractSwitches(string.split(params, ' '))
+		params = removeListDuplicates(switches[2])
+		switches = switches[1]
+		
+		return listitems.list(player, params, switches, 'entities')
 	end,
 })
