@@ -1,4 +1,4 @@
-# List Items (***listitems***) chat command for Minetest
+# List Items (***listitems***) chat command for [Minetest][]
 
 
 ---
@@ -30,3 +30,6 @@
 
 - **Depends:** none
 - **Privileges:** none
+
+
+[Minetest]: http://www.minetest.net/
