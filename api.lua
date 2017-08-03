@@ -160,19 +160,6 @@ local function extractSwitches(plist)
 				table.insert(params, p)
 			end
 		end
-		
-		-- DEBUG:
-		if listitems.debug then
-			listitems.logDebug('Switches:')
-			for i, o in ipairs(switches) do
-				listitems.logDebug('  ' .. o)
-			end
-			
-			listitems.logDebug('Parameters:')
-			for i, p in ipairs(params) do
-				listitems.logDebug('  ' .. p)
-			end
-		end
 	end
 	
 	return {switches, params}
