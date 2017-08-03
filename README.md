@@ -35,7 +35,7 @@
 ---
 ### **Documentation:**
 
-- [API Documentation](https://antummt.github.io/mod-listitems/api)
+- [API Documentation](https://antummt.github.io/mod-listitems/api.html)
 
 
 [Minetest]: http://www.minetest.net/
