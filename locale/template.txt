@@ -13,6 +13,9 @@ string2 =
 
 ## Error output
 Error: Unknown option: =
+Error: Must specify list type =
+Error: Unknown list type: =
+Recognized list types: =
 
 ## Search description
 Searching in names ... =

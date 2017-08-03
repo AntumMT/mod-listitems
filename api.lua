@@ -32,6 +32,16 @@ end
 -- @field -v Display descriptions.
 local known_switches = {'-v',}
 
+--- Valid list types.
+--
+-- @table known_lists
+-- @local
+local known_lists = {
+	'items',
+	'entities',
+	'ores',
+}
+
 
 --- Checks if a parameter is a switch beginning with "-".
 --
@@ -428,6 +438,21 @@ registerChatCommand('list', {
 	func = function(player, params)
 		local switches = string.split(params, ' ')
 		local l_type = table.remove(switches, 1)
+		
+		local type_ok = true
+		if not l_type then
+			core.chat_send_player(player, S('Error: Must specify list type'))
+			type_ok = false
+		elseif not listContains(known_lists, l_type) then
+			core.chat_send_player(player, S('Error: Unknown list type:') .. ' ' .. l_type)
+			type_ok = false
+		end
+		
+		if not type_ok then
+			core.chat_send_player(player, S('Recognized list types:') .. ' ' .. table.concat(known_lists, ', '))
+			return false
+		end
+		
 		switches = extractSwitches(switches)
 		params = removeListDuplicates(switches[2])
 		switches = switches[1]
