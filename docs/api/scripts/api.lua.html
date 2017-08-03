@@ -1,0 +1,275 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>List Items mod for Minetest</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>listitems</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Settings">Settings</a></li>
+<li><a href="#Chat_Commands">Chat Commands</a></li>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Scripts</h2>
+<ul class="nowrap">
+  <li><strong>api.lua</strong></li>
+  <li><a href="../scripts/init.lua.html">init.lua</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Script <code>api.lua</code></h1>
+<p>List Items API</p>
+<p></p>
+
+
+<h2><a href="#Settings">Settings</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#listitems.bullet_list">listitems.bullet_list</a></td>
+	<td class="summary">Setting to display a bulleted list.</td>
+	</tr>
+</table>
+<h2><a href="#Chat_Commands">Chat Commands</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#listitems">listitems [-v] [string1] [string2] ...</a></td>
+	<td class="summary">Lists registered items.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#listentities">listentities [-v] [string1] [string2] ...</a></td>
+	<td class="summary">Lists registered entities.</td>
+	</tr>
+</table>
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#compareSubstringList">compareSubstringList (ss_list, s_value)</a></td>
+	<td class="summary">Compares a string from a list of substrings.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#listitems.list">listitems.list (player, params, switches, l_type, lower)</a></td>
+	<td class="summary"><em>listitems</em> base function.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2><a name="Settings"></a>Settings</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "listitems.bullet_list"></a>
+    <strong>listitems.bullet_list</strong>
+    </dt>
+    <dd>
+    Setting to display a bulleted list.
+
+    </ul>
+    </ul>
+    </ul>
+    </ul>
+    </ul>
+    <h3>Type:</h3>
+    <ul>
+         <i>boolean</i>
+    </ul>
+
+
+
+
+
+
+</dd>
+</dl>
+    <h2><a name="Chat_Commands"></a>Chat Commands</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "listitems"></a>
+    <strong>listitems [-v] [string1] [string2] ...</strong>
+    </dt>
+    <dd>
+    Lists registered items.
+
+    </ul>
+    </ul>
+    </ul>
+    <h3>Parameters:</h3>
+    <ul>
+         <li>[-v]</li>
+         <li>[string1]</li>
+         <li>[string2]</li>
+         <li>&hellip;</li>
+    </ul>
+    </ul>
+    </ul>
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "listentities"></a>
+    <strong>listentities [-v] [string1] [string2] ...</strong>
+    </dt>
+    <dd>
+    Lists registered entities.
+
+    </ul>
+    </ul>
+    </ul>
+    <h3>Parameters:</h3>
+    <ul>
+         <li>[-v]</li>
+         <li>[string1]</li>
+         <li>[string2]</li>
+         <li>&hellip;</li>
+    </ul>
+    </ul>
+    </ul>
+
+
+
+
+
+
+</dd>
+</dl>
+    <h2><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "compareSubstringList"></a>
+    <strong>compareSubstringList (ss_list, s_value)</strong>
+    </dt>
+    <dd>
+    Compares a string from a list of substrings.
+
+    </ul>
+    </ul>
+    </ul>
+    </ul>
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">ss_list</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.5">table</a></span>
+
+        </li>
+        <li><span class="parameter">s_value</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "listitems.list"></a>
+    <strong>listitems.list (player, params, switches, l_type, lower)</strong>
+    </dt>
+    <dd>
+    <em>listitems</em> base function.</p>
+
+<p> Lists registered items or entities.
+
+    </ul>
+    </ul>
+    </ul>
+    </ul>
+    </ul>
+    </ul>
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">player</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+         Name of player to receive message output.
+        </li>
+        <li><span class="parameter">params</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+         String list of parameters.
+        </li>
+        <li><span class="parameter">switches</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+         String list of switch options for manipulating output.
+        </li>
+        <li><span class="parameter">l_type</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+         Objects to list (either &ldquo;items&rdquo; or &ldquo;entities&rdquo;).
+        </li>
+        <li><span class="parameter">lower</span>
+            <span class="types"><span class="type">boolean</span></span>
+         Case-insensitive matching if <strong><em>true</em></strong>.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.3</a></i>
+<i style="float:right;">Last updated 2017-08-02 17:32:46 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
