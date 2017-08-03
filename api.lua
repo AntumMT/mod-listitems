@@ -307,7 +307,7 @@ function listitems.list(player, params, switches, l_type, lower)
 	lower = lower == nil or lower == true
 	
 	if not listContains(known_lists, l_type) then
-		listitems.logWarn('listitems.listitems called with unknown list type: ' .. tostring(l_type))
+		listitems.logWarn('listitems.list called with unknown list type: ' .. tostring(l_type))
 		return false
 	end
 	
