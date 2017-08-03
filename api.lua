@@ -296,12 +296,12 @@ end
 --
 -- @function listitems.list
 -- @tparam string player Name of player to receive message output.
--- @tparam string params String list of parameters.
--- @tparam string switches String list of switch options for manipulating output.
 -- @tparam string l_type Objects to list (either "items", "entities", or "ores").
+-- @tparam string switches String list of switch options for manipulating output.
+-- @tparam string params String list of parameters.
 -- @tparam boolean lower Case-insensitive matching if ***true***.
 -- @treturn boolean
-function listitems.list(player, params, switches, l_type, lower)
+function listitems.list(player, l_type, switches, params, lower)
 	-- Default list type is "items"
 	l_type = l_type or 'items'
 	lower = lower == nil or lower == true
@@ -386,7 +386,7 @@ local function list(player, l_type, params)
 			end
 		end
 		
-		return listitems.list(player, params, switches, l_type)
+		return listitems.list(player, l_type, switches, params)
 end
 
 
