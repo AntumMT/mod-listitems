@@ -4,6 +4,7 @@
 ## Help output description
 List registered items =
 List registered entities =
+List registered ores =
 
 ## Help output parameters
 options =

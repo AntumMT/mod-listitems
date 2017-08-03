@@ -71,23 +71,30 @@ end
 -- @function getRegistered
 -- @local
 -- @tparam string r_type Must be either "items" or "entities".
--- @treturn table Either a list of registered item or entity names & descriptions. 
+-- @treturn table Either a list of registered item or entity names & descriptions.
+-- @note Ore names are located in the "ore" field of the registered tables
 local function getRegistered(r_type)
-	if r_type == nil then
-		r_type = 'items'
-	end
+	-- Default is "items"
+	r_type = r_type or 'items'
 	
 	local o_names = {}
 	local objects = {}
 	local o_temp = {}
 	
-	if r_type == 'items' then
-		o_temp = core.registered_items
-	else
+	if r_type == 'entities' then
 		o_temp = core.registered_entities
+	elseif r_type == 'ores' then
+		o_temp = core.registered_ores
+	else
+		o_temp = core.registered_items
 	end
 	
 	for name, def in pairs(o_temp) do
+		-- Ore names are located in the 'ore' field of the table
+		if r_type == 'ores' then
+			name = def.ore
+		end
+		
 		table.insert(objects, {name=name, descr=def.description,})
 		table.insert(o_names, name)
 	end
@@ -294,7 +301,7 @@ end
 -- @tparam string player Name of player to receive message output.
 -- @tparam string params String list of parameters.
 -- @tparam string switches String list of switch options for manipulating output.
--- @tparam string l_type Objects to list (either "items" or "entities").
+-- @tparam string l_type Objects to list (either "items", "entities", or "ores").
 -- @tparam boolean lower Case-insensitive matching if ***true***.
 -- @treturn boolean
 function listitems.list(player, params, switches, l_type, lower)
@@ -302,7 +309,7 @@ function listitems.list(player, params, switches, l_type, lower)
 	l_type = l_type or 'items'
 	lower = lower == nil or lower == true
 	
-	local types = {'items', 'entities',}
+	local types = {'items', 'entities', 'ores',}
 	if not listContains(types, l_type) then
 		listitems.logWarn('listitems.listitems called with unknown list type: ' .. tostring(l_type))
 		return false
@@ -381,5 +388,26 @@ registerChatCommand('listentities', {
 		switches = switches[1]
 		
 		return listitems.list(player, params, switches, 'entities')
+	end,
+})
+
+
+--- Lists registered ores.
+--
+-- @chatcmd listores
+-- @chatparam [-v]
+-- @chatparam [string1]
+-- @chatparam [string2]
+-- @chatparam ...
+-- @treturn boolean
+registerChatCommand('listores', {
+	params = '[-v] [' .. S('string1') .. '] [' .. S('string2') .. '] ...',
+	description = S('List registered ores'),
+	func = function(player, params)
+		local switches = extractSwitches(string.split(params, ' '))
+		params = removeListDuplicates(switches[2])
+		switches = switches[1]
+		
+		return listitems.list(player, params, switches, 'ores')
 	end,
 })

@@ -5,7 +5,7 @@ not_luadoc = true
 --wrap = true
 boilerplate = true
 
-local function tagoutput(value)
+local function italic(value)
 	return '<i>' .. value .. '</i>'
 end
 
@@ -13,11 +13,11 @@ new_type('setting', 'Settings')
 new_type('chatcmd', 'Chat Commands', false, 'chatparam')
 custom_tags = {
 	{'default',
-		format = tagoutput,
+		format = italic,
 	},
 	{'type2',
 		title = 'Type',
-		format = tagoutput,
+		format = italic,
 	},
 	{'dfield',
 		title = 'Definition Fields',
@@ -38,13 +38,13 @@ custom_tags = {
 	},
 	{'settype',
 		title = 'Type',
-		format = function(item)
-			return '<i>' .. item .. '</i>'
-		end,
-	}
+		format = italic,
+	},
+	{'note',
+		title = 'Notes',
+		format = italic,
+	},
 }
-
-alias('tchatparam', 'chatparam')
 
 local function chatcmd_handler(item)
 	local output = item.name
