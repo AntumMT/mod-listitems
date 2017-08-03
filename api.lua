@@ -260,7 +260,7 @@ function listitems.list(player, params, l_type, lower)
 	end
 	
 	all_objects = getRegistered(l_type)
-	local matched_items = formatMatching(player, all_objects, params, switches)
+	local matched_items = formatMatching(player, all_objects, params, switches, lower)
 	
 	displayList(player, matched_items)
 	
