@@ -391,57 +391,6 @@ local function list(player, l_type, params)
 end
 
 
---- Lists registered items.
---
--- @chatcmd listitems
--- @chatparam [-v]
--- @chatparam [string1]
--- @chatparam [string2]
--- @chatparam ...
--- @treturn boolean
-registerChatCommand('listitems', {
-	params = '[-v] [' .. S('string1') .. '] [' .. S('string2') .. '] ...',
-	description = S('List registered items'),
-	func = function(player, params)
-		return list(player, 'items', params)
-	end,
-})
-
-
---- Lists registered entities.
---
--- @chatcmd listentities
--- @chatparam [-v]
--- @chatparam [string1]
--- @chatparam [string2]
--- @chatparam ...
--- @treturn boolean
-registerChatCommand('listentities', {
-	params = '[-v] [' .. S('string1') .. '] [' .. S('string2') .. '] ...',
-	description = S('List registered entities'),
-	func = function(player, params)
-		return list(player, 'entities', params)
-	end,
-})
-
-
---- Lists registered ores.
---
--- @chatcmd listores
--- @chatparam [-v]
--- @chatparam [string1]
--- @chatparam [string2]
--- @chatparam ...
--- @treturn boolean
-registerChatCommand('listores', {
-	params = '[-v] [' .. S('string1') .. '] [' .. S('string2') .. '] ...',
-	description = S('List registered ores'),
-	func = function(player, params)
-		return list(player, 'ores', params)
-	end,
-})
-
-
 --- General *list* chat command
 --
 -- @chatcmd list
@@ -462,3 +411,15 @@ registerChatCommand('list', {
 		return list(player, l_type, params)
 	end,
 })
+
+
+-- Chat commands aliases.
+for i, cmd in ipairs(known_lists) do
+	registerChatCommand('list' .. cmd, {
+		params = '[-v] [' .. S('string1') .. '] [' .. S('string2') .. '] ...',
+		description = S('List registered ' .. cmd),
+		func = function(player, params)
+			return list(player, cmd, params)
+		end,
+	})
+end
