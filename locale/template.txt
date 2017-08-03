@@ -7,7 +7,6 @@ List registered entities =
 List registered ores =
 
 ## Help output parameters
-options =
 string1 =
 string2 =
 

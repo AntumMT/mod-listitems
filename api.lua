@@ -380,7 +380,7 @@ registerChatCommand('listitems', {
 -- @chatparam ...
 -- @treturn boolean
 registerChatCommand('listentities', {
-	params = '[' .. S('options') .. '] [' .. S('string1') .. '] [' .. S('string2') .. '] ...',
+	params = '[-v] [' .. S('string1') .. '] [' .. S('string2') .. '] ...',
 	description = S('List registered entities'),
 	func = function(player, params)
 		local switches = extractSwitches(string.split(params, ' '))

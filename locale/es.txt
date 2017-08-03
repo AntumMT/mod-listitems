@@ -6,7 +6,6 @@ List registered items = Listar los artículos registrados
 List registered entities = Listar los entidades registrados
 
 ## Help output parameters
-options = opciones
 string1 = cadena1
 string2 = cadena2
 
