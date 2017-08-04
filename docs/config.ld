@@ -12,9 +12,6 @@ end
 new_type('setting', 'Settings')
 new_type('chatcmd', 'Chat Commands', false, 'chatparam')
 custom_tags = {
-	{'default',
-		format = italic,
-	},
 	{'type2',
 		title = 'Type',
 		format = italic,
@@ -38,6 +35,10 @@ custom_tags = {
 	},
 	{'settype',
 		title = 'Type',
+		format = italic,
+	},
+	{'default',
+		title = 'Default',
 		format = italic,
 	},
 	{'note',
