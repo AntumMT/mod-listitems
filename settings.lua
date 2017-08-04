@@ -16,4 +16,5 @@ listitems.debug = core.settings:get_bool('enable_debug_mods') or false
 --
 -- @setting listitems.enable_generic
 -- @settype boolean
+-- @default false
 listitems.enable_generic = core.settings:get_bool('listitems.enable_generic') or false
