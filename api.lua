@@ -249,6 +249,7 @@ end
 --
 -- @setting listitems.bullet_list
 -- @settype boolean
+-- @default true
 local bullet_list = core.settings:get_bool('listitems.bullet_list')
 if bullet_list == nil then
 	-- Default is true
