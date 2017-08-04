@@ -390,26 +390,28 @@ local function list(player, l_type, params)
 end
 
 
---- General *list* chat command
---
--- @chatcmd list
--- @chatparam type
--- @chatparam [-v]
--- @chatparam [string1]
--- @chatparam [string2]
--- @chatparam ...
--- @treturn boolean
-registerChatCommand('list', {
-	params = S('type') .. ' [-v] [' .. S('string1') .. '] [' .. S('string2') .. '] ...',
-	description = S('List registered items or entities'),
-	func = function(player, params)
-		local params = string.split(params, ' ')
-		local l_type = table.remove(params, 1)
-		params = table.concat(params, ' ')
-		
-		return list(player, l_type, params)
-	end,
-})
+if listitems.enable_generic then
+	--- General *list* chat command
+	--
+	-- @chatcmd list
+	-- @chatparam type
+	-- @chatparam [-v]
+	-- @chatparam [string1]
+	-- @chatparam [string2]
+	-- @chatparam ...
+	-- @treturn boolean
+	registerChatCommand('list', {
+		params = S('type') .. ' [-v] [' .. S('string1') .. '] [' .. S('string2') .. '] ...',
+		description = S('List registered items or entities'),
+		func = function(player, params)
+			local params = string.split(params, ' ')
+			local l_type = table.remove(params, 1)
+			params = table.concat(params, ' ')
+			
+			return list(player, l_type, params)
+		end,
+	})
+end
 
 
 -- Chat commands aliases.

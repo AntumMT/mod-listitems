@@ -11,3 +11,6 @@
 
 
 listitems.debug = core.settings:get_bool('enable_debug_mods') or false
+
+-- Enables/Disables "list" chat command.
+listitems.enable_generic = core.settings:get_bool('listitems.enable_generic') or false
