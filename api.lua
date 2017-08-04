@@ -39,6 +39,7 @@ local known_switches = {'-v',}
 local known_lists = {
 	'items',
 	'entities',
+	'nodes',
 	'ores',
 }
 
@@ -97,6 +98,8 @@ local function getRegistered(r_type)
 	
 	if r_type == 'entities' then
 		o_temp = core.registered_entities
+	elseif r_type == 'nodes' then
+		o_temp = core.registered_nodes
 	elseif r_type == 'ores' then
 		o_temp = core.registered_ores
 	elseif r_type == 'mobs' then

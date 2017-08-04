@@ -15,6 +15,7 @@
     - With string parameters, only objects matching any of the strings will be listed.
 - ***listitems:*** Alias for */list items*.
 - ***listentities:*** Alias for */list entities*.
+- ***listnodes:*** Alias for */list nodes*.
 - ***listores:*** Alias for */list ores*.
   - Invocation: ```/<command> [options] [string1] [string2] ...```
     - ***command:*** Name of the command (e.g. *listitems*, *listentities*, etc.)
