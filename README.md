@@ -31,7 +31,11 @@
 ---
 ### **Requirements:**
 
-- **Depends:** none
+- **Dependencies:**
+  - Required: ***none***
+  - Optional:
+    - ***[intllib][]***
+    - ***[mobs_redo][]*** *(optionally adds "listmobs" chat command)*
 - **Privileges:** none
 
 
@@ -48,3 +52,5 @@
 
 
 [Minetest]: http://www.minetest.net/
+[intllib]: https://forum.minetest.net/viewtopic.php?t=4929
+[mobs_redo]: https://forum.minetest.net/viewtopic.php?t=9917

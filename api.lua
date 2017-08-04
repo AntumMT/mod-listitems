@@ -42,6 +42,10 @@ local known_lists = {
 	'ores',
 }
 
+if listitems.enable_mobs then
+	table.insert(known_lists, 'mobs')
+end
+
 
 --- Checks if a parameter is a switch beginning with "-".
 --
@@ -95,6 +99,8 @@ local function getRegistered(r_type)
 		o_temp = core.registered_entities
 	elseif r_type == 'ores' then
 		o_temp = core.registered_ores
+	elseif r_type == 'mobs' then
+		o_temp = mobs.spawning_mobs
 	else
 		o_temp = core.registered_items
 	end
@@ -103,6 +109,8 @@ local function getRegistered(r_type)
 		-- Ore names are located in the 'ore' field of the table
 		if r_type == 'ores' then
 			name = def.ore
+		elseif r_type == 'mobs' then
+			def = {}
 		end
 		
 		table.insert(objects, {name=name, descr=def.description,})
