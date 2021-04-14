@@ -12,17 +12,7 @@
 -- @script api.lua
 
 
--- Boilerplate to support localized strings if intllib mod is installed.
-local S
-if core.global_exists('intllib') then
-	if intllib.make_gettext_pair then
-		S = intllib.make_gettext_pair()
-	else
-		S = intllib.Getter()
-	end
-else
-	S = function(s) return s end
-end
+local S = core.get_translator()
 
 
 --- Valid option switches.
@@ -369,7 +359,6 @@ local function list(player, l_type, params)
 		end
 
 		if not type_ok then
-			core.chat_send_player(player, S('Recognized list types:') .. ' ' .. table.concat(known_types, ', '))
 			return false
 		end
 
@@ -396,16 +385,7 @@ end
 
 local help_string = S('List registered items or entities (use -v switch to show descriptions)')
 if known_types ~= nil and #known_types > 0 then
-	help_string = help_string .. '\n\n\tRegistered types: '
-	local appended = false
-	for _, t in ipairs(known_types) do
-		if not appended then
-			help_string = help_string .. t
-			appended = true
-		else
-			help_string = help_string .. ', ' .. t
-		end
-	end
+	help_string = help_string .. '\n\n\t' .. S('Registered types:') .. ' ' .. table.concat(known_types, ', ')
 end
 
 --- General *list* chat command (use -v switch to show descriptions).
