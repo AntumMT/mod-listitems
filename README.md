@@ -7,7 +7,7 @@
 #### Chat Commands:
 - ***list:*** Lists registered items or entities available in the game.
   - Invocation: ```/list type [options] [string1] [string2] ...```
-    - ***type:*** List type (e.g. "items", "entities", etc.) (currently, if omitted, defaults to "items").
+    - ***type:*** List type (e.g. "items", "entities", etc.).
     - ***options:*** Switches to control output behavior.
       - ***-v:*** Display description (if available) after object name.
     - ***string[1,2] ...:*** String parameter(s) to filter output.
@@ -29,7 +29,6 @@
 - **Dependencies:**
   - Required: ***none***
   - Optional:
-    - ***[intllib][]***
     - ***[mobs_redo][]*** *(optionally adds "list mobs" chat command)*
 - **Privileges:** none
 
