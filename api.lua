@@ -34,7 +34,7 @@ local known_types = {
 	'tools',
 }
 
-if listitems.enable_mobs then
+if core.global_exists('mobs') then
 	table.insert(known_types, 'mobs')
 end
 
@@ -131,6 +131,7 @@ end
 --- Compares a string from a list of substrings.
 --
 -- @function compareSubstringList
+-- @local
 -- @tparam table ss_list
 -- @tparam string s_value
 -- @treturn boolean
