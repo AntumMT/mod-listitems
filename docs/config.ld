@@ -71,4 +71,4 @@ function custom_display_name_handler(item, default_handler)
 	return default_handler(item)
 end
 
-file = {'init.lua', 'api.lua'}
+file = {'settings.lua', 'api.lua'}

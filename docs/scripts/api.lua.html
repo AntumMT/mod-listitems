@@ -26,13 +26,13 @@
 <br/>
 <h1>listitems</h1>
 
+
 <ul>
   <li><a href="../api.html">Index</a></li>
 </ul>
 
 <h2>Contents</h2>
 <ul>
-<li><a href="#Settings">Settings</a></li>
 <li><a href="#Chat_Commands">Chat Commands</a></li>
 <li><a href="#Functions">Functions</a></li>
 </ul>
@@ -40,9 +40,8 @@
 
 <h2>Scripts</h2>
 <ul class="nowrap">
+  <li><a href="../scripts/settings.lua.html">settings.lua</a></li>
   <li><strong>api.lua</strong></li>
-  <li><a href="../scripts/init.lua.html">init.lua</a></li>
-  <li><a href="../scripts/settings.html">settings</a></li>
 </ul>
 
 </div>
@@ -51,31 +50,26 @@
 
 <h1>Script <code>api.lua</code></h1>
 <p>List Items API</p>
-<p></p>
+<p>
+
+</p>
 
 
-<h2><a href="#Settings">Settings</a></h2>
-<table class="function_list">
-	<tr>
-	<td class="name" nowrap><a href="#listitems.bullet_list">listitems.bullet_list</a></td>
-	<td class="summary">Setting to display a bulleted list.</td>
-	</tr>
-</table>
 <h2><a href="#Chat_Commands">Chat Commands</a></h2>
 <table class="function_list">
 	<tr>
 	<td class="name" nowrap><a href="#list">list type [-v] [string1] [string2] ...</a></td>
-	<td class="summary">General <em>list</em> chat command</td>
+	<td class="summary">General <em>list</em> chat command (use -v switch to show descriptions).</td>
 	</tr>
 </table>
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#compareSubstringList">compareSubstringList (ss_list, s_value)</a></td>
+	<td class="name" nowrap><a href="#compareSubstringList">compareSubstringList (<i>ss_list</i>, <i>s_value</i>)</a></td>
 	<td class="summary">Compares a string from a list of substrings.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#listitems.list">listitems.list (player, l_type, switches, params, lower)</a></td>
+	<td class="name" nowrap><a href="#listitems.list">listitems.list (<i>player</i>, <i>l_type</i>, <i>switches</i>, <i>params</i>, <i>nocase</i>)</a></td>
 	<td class="summary"><em>listitems</em> base function.</td>
 	</tr>
 </table>
@@ -84,38 +78,7 @@
 <br/>
 
 
-    <h2><a name="Settings"></a>Settings</h2>
-
-    <dl class="function">
-    <dt>
-    <a name = "listitems.bullet_list"></a>
-    <strong>listitems.bullet_list</strong>
-    </dt>
-    <dd>
-    Setting to display a bulleted list.
-
-    </ul>
-    </ul>
-    </ul>
-    </ul>
-    <h3>Type:</h3>
-    <ul>
-         <i>boolean</i>
-    </ul>
-    <h3>Default:</h3>
-    <ul>
-         <i>true</i>
-    </ul>
-    </ul>
-
-
-
-
-
-
-</dd>
-</dl>
-    <h2><a name="Chat_Commands"></a>Chat Commands</h2>
+    <h2 class="section-header "><a name="Chat_Commands"></a>Chat Commands</h2>
 
     <dl class="function">
     <dt>
@@ -123,7 +86,7 @@
     <strong>list type [-v] [string1] [string2] ...</strong>
     </dt>
     <dd>
-    General <em>list</em> chat command
+    General <em>list</em> chat command (use -v switch to show descriptions).
 
     </ul>
     </ul>
@@ -133,7 +96,7 @@
          <li>[-v]</li>
          <li>[string1]</li>
          <li>[string2]</li>
-         <li>&hellip;</li>
+         <li>...</li>
     </ul>
     </ul>
     </ul>
@@ -147,12 +110,12 @@
 
 </dd>
 </dl>
-    <h2><a name="Functions"></a>Functions</h2>
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
 
     <dl class="function">
     <dt>
     <a name = "compareSubstringList"></a>
-    <strong>compareSubstringList (ss_list, s_value)</strong>
+    <strong>compareSubstringList (<i>ss_list</i>, <i>s_value</i>)</strong>
     </dt>
     <dd>
     Compares a string from a list of substrings.
@@ -167,12 +130,16 @@
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">ss_list</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.5">table</a></span>
+          <li><span class="parameter">ss_list</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.6">table</a></span>
+
+
 
         </li>
-        <li><span class="parameter">s_value</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+          <li><span class="parameter">s_value</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.4">string</a></span>
+
+
 
         </li>
     </ul>
@@ -182,6 +149,8 @@
 
            <span class="types"><span class="type">boolean</span></span>
 
+
+
     </ol>
 
 
@@ -190,10 +159,10 @@
 </dd>
     <dt>
     <a name = "listitems.list"></a>
-    <strong>listitems.list (player, l_type, switches, params, lower)</strong>
+    <strong>listitems.list (<i>player</i>, <i>l_type</i>, <i>switches</i>, <i>params</i>, <i>nocase</i>)</strong>
     </dt>
     <dd>
-    <em>listitems</em> base function.</p>
+    <em>listitems</em> base function. </p>
 
 <p> Lists registered items or entities.
 
@@ -207,23 +176,23 @@
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">player</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+          <li><span class="parameter">player</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.4">string</a></span>
          Name of player to receive message output.
         </li>
-        <li><span class="parameter">l_type</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
-         Objects to list (either &ldquo;items&rdquo;, &ldquo;entities&rdquo;, or &ldquo;ores&rdquo;).
+          <li><span class="parameter">l_type</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.4">string</a></span>
+         Objects to list (e.g. "items", "entities", "ores", etc.).
         </li>
-        <li><span class="parameter">switches</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+          <li><span class="parameter">switches</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.4">string</a></span>
          String list of switch options for manipulating output.
         </li>
-        <li><span class="parameter">params</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+          <li><span class="parameter">params</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.4">string</a></span>
          String list of parameters.
         </li>
-        <li><span class="parameter">lower</span>
+          <li><span class="parameter">nocase</span>
             <span class="types"><span class="type">boolean</span></span>
          Case-insensitive matching if <strong><em>true</em></strong>.
         </li>
@@ -233,6 +202,8 @@
     <ol>
 
            <span class="types"><span class="type">boolean</span></span>
+
+
 
     </ol>
 
@@ -246,8 +217,8 @@
 </div> <!-- id="content" -->
 </div> <!-- id="main" -->
 <div id="about">
-<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.3</a></i>
-<i style="float:right;">Last updated 2017-08-03 18:09:10 </i>
+<i>generated by <a href="http://github.com/AntumDeluge/LDoc">LDoc 1.4.6-antum-2</a></i>
+<i style="float:right;">Last updated 2021-04-14 13:47:04 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

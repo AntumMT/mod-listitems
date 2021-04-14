@@ -13,13 +13,6 @@
     - ***string[1,2] ...:*** String parameter(s) to filter output.
     - Without any string parameters, all objects registered in game are listed.
     - With string parameters, only objects matching any of the strings will be listed.
-- ***listitems:*** Alias for */list items*.
-- ***listentities:*** Alias for */list entities*.
-- ***listnodes:*** Alias for */list nodes*.
-- ***listores:*** Alias for */list ores*.
-- ***listtools:*** Alias for */list tools*.
-  - Invocation: ```/<command> [options] [string1] [string2] ...```
-    - ***command:*** Name of the command (e.g. *listitems*, *listentities*, etc.)
 
 ![Screenshot](screenshot.png)
 
@@ -37,7 +30,7 @@
   - Required: ***none***
   - Optional:
     - ***[intllib][]***
-    - ***[mobs_redo][]*** *(optionally adds "listmobs" chat command)*
+    - ***[mobs_redo][]*** *(optionally adds "list mobs" chat command)*
 - **Privileges:** none
 
 
