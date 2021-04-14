@@ -17,10 +17,14 @@ listitems.debug = core.settings:get_bool('enable_debug_mods') or false
 
 --- Displays items in a bulleted list.
 --
+-- FIXME: should be client side only
+--
 -- @setting listitems.bullet_list
 -- @settype boolean
 -- @default true
-listitems.bullet_list = core.settings:get_bool('listitems.bullet_list') or true
+listitems.bullet_list = core.settings:get_bool('listitems.bullet_list')
+-- Default enabled
+listitems.bullet_list = listitems.bullet_list == nil or listitems.bullet_list == true
 
 
 --- Enables/Disables "list mobs" chat command.
