@@ -4,6 +4,7 @@
 ## Help output description
 List registered items or entities=
 Display descriptions=
+Don't search descriptions=
 Registered types:=
 
 ## Help output parameters

@@ -15,8 +15,11 @@
 local S = core.get_translator()
 
 
+local sw_verbose = {'-v', S('Display descriptions')}
+local sw_shallow = {'-s', S('Don\'t search descriptions')}
 local options = {
-	{'-v', S('Display descriptions')},
+	sw_verbose,
+	sw_shallow,
 }
 
 --- Valid option switches.
@@ -214,11 +217,11 @@ local function formatMatching(player, nlist, params, switches, nocase)
 	local matching = {}
 
 	local show_descr = false
+	local deep_search = true
 	if switches ~= nil then
-		show_descr = listContains(switches, '-v')
+		show_descr = listContains(switches, sw_verbose[1])
+		deep_search = not listContains(switches, sw_shallow[1])
 	end
-
-	core.chat_send_player(player, '\n' .. S('Searching in names ...'))
 
 	if params == nil then
 		params = {}
@@ -234,15 +237,30 @@ local function formatMatching(player, nlist, params, switches, nocase)
 			end
 		end
 	else
+		if deep_search then
+			core.chat_send_player(player, '\n' .. S('Searching in names and descriptions ...'))
+		else
+			core.chat_send_player(player, '\n' .. S('Searching in names ...'))
+		end
+
 		-- Fill matching list
 		for i, item in ipairs(nlist) do
 			local name = item.name
+			local descr = item.descr
 			-- Case-insensitive matching
 			if nocase then
 				name = string.lower(name)
+				if descr ~= nil then
+					descr = string.lower(descr)
+				end
 			end
 
-			if compareSubstringList(params, name) then
+			local matches = compareSubstringList(params, name)
+			if deep_search and not matches and descr ~= nil then
+				matches = compareSubstringList(params, descr)
+			end
+
+			if matches then
 				if show_descr and item.descr ~= nil then
 					table.insert(matching, item.name .. ' (' .. item.descr .. ')')
 				else
@@ -390,22 +408,25 @@ local function list(player, l_type, params)
 end
 
 
-local help_string = S('List registered items or entities\n')
+local help_string = S('List registered items or entities\n\n\tOptions:')
 for _, o in ipairs(options) do
-	help_string = help_string .. '\n\t' .. o[1] .. ': ' .. o[2]
+	help_string = help_string .. '\n\t\t' .. o[1] .. ': ' .. o[2]
 end
 if known_types ~= nil and #known_types > 0 then
 	help_string = help_string .. '\n\n\t' .. S('Registered types:') .. ' ' .. table.concat(known_types, ', ')
 end
 
---- General *list* chat command (use -v switch to show descriptions).
+--- General *list* chat command.
+--
+-- Options:
+--
+-- - -v (verbose) Display descriptions.
+-- - -s (shallow) Don't search descriptions.
 --
 -- @chatcmd   list
 -- @chatparam type
--- @chatparam [-v]
--- @chatparam [string1]
--- @chatparam [string2]
--- @chatparam ...
+-- @chatparam [options]
+-- @chatparam [string1] [string2] ...
 -- @treturn   boolean
 registerChatCommand('list', {
 	params = S('type') .. ' [options] [' .. S('string1') .. '] [' .. S('string2') .. '] ...',

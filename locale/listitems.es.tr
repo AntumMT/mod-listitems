@@ -4,6 +4,7 @@
 ## Help output description
 List registered items or entities=Listar los artículos o los entidades registrados
 Display descriptions=Mostrar descripciones
+Don't search descriptions=No analizar descripciones
 Registered types:=Tipos registrados:
 
 ## Help output parameters
