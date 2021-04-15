@@ -15,12 +15,18 @@
 local S = core.get_translator()
 
 
+local options = {
+	{'-v', S('Display descriptions')},
+}
+
 --- Valid option switches.
 --
 -- @table known_switches
 -- @local
--- @field -v Display descriptions.
-local known_switches = {'-v',}
+local known_switches = {}
+for _, o in ipairs(options) do
+	table.insert(known_switches, o[1])
+end
 
 --- Valid list types.
 --
@@ -384,7 +390,10 @@ local function list(player, l_type, params)
 end
 
 
-local help_string = S('List registered items or entities (use -v switch to show descriptions)')
+local help_string = S('List registered items or entities\n')
+for _, o in ipairs(options) do
+	help_string = help_string .. '\n\t' .. o[1] .. ': ' .. o[2]
+end
 if known_types ~= nil and #known_types > 0 then
 	help_string = help_string .. '\n\n\t' .. S('Registered types:') .. ' ' .. table.concat(known_types, ', ')
 end
@@ -399,7 +408,7 @@ end
 -- @chatparam ...
 -- @treturn   boolean
 registerChatCommand('list', {
-	params = S('type') .. ' [-v] [' .. S('string1') .. '] [' .. S('string2') .. '] ...',
+	params = S('type') .. ' [options] [' .. S('string1') .. '] [' .. S('string2') .. '] ...',
 	description = help_string,
 	func = function(player, params)
 		local params = string.split(params, ' ')

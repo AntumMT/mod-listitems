@@ -2,7 +2,8 @@
 
 
 ## Help output description
-List registered items or entities (use -v switch to show descriptions)=
+List registered items or entities=
+Display descriptions=
 Registered types:=
 
 ## Help output parameters
