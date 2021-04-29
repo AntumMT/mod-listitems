@@ -15,8 +15,8 @@
 local S = core.get_translator()
 
 
-local sw_verbose = {'-v', S('Display descriptions')}
-local sw_shallow = {'-s', S('Don\'t search descriptions')}
+local sw_verbose = {"-v", S("Display descriptions")}
+local sw_shallow = {"-s", S("Don't search descriptions")}
 local options = {
 	sw_verbose,
 	sw_shallow,
@@ -36,15 +36,15 @@ end
 -- @table known_types
 -- @local
 local known_types = {
-	'items',
-	'entities',
-	'nodes',
-	'ores',
-	'tools',
+	"items",
+	"entities",
+	"nodes",
+	"ores",
+	"tools",
 }
 
-if core.global_exists('mobs') then
-	table.insert(known_types, 'mobs')
+if core.global_exists("mobs") then
+	table.insert(known_types, "mobs")
 end
 
 
@@ -56,7 +56,7 @@ end
 -- @treturn boolean ***true*** if parameter type is "switch" prefixed with dash.
 local function isSwitch(param)
 	if param then
-		return #param == 2 and string.find(param, '-') == 1
+		return #param == 2 and string.find(param, "-") == 1
 	end
 
 	return false
@@ -90,31 +90,31 @@ end
 -- @note Ore names are located in the "ore" field of the registered tables
 local function getRegistered(r_type)
 	-- Default is "items"
-	r_type = r_type or 'items'
+	r_type = r_type or "items"
 
 	local o_names = {}
 	local objects = {}
 	local o_temp = {}
 
-	if r_type == 'entities' then
+	if r_type == "entities" then
 		o_temp = core.registered_entities
-	elseif r_type == 'nodes' then
+	elseif r_type == "nodes" then
 		o_temp = core.registered_nodes
-	elseif r_type == 'ores' then
+	elseif r_type == "ores" then
 		o_temp = core.registered_ores
-	elseif r_type == 'tools' then
+	elseif r_type == "tools" then
 		o_temp = core.registered_tools
-	elseif r_type == 'mobs' then
+	elseif r_type == "mobs" then
 		o_temp = mobs.spawning_mobs
 	else
 		o_temp = core.registered_items
 	end
 
 	for name, def in pairs(o_temp) do
-		-- Ore names are located in the 'ore' field of the table
-		if r_type == 'ores' then
+		-- Ore names are located in the "ore" field of the table
+		if r_type == "ores" then
 			name = def.ore
-		elseif r_type == 'mobs' then
+		elseif r_type == "mobs" then
 			def = {}
 		end
 
@@ -231,16 +231,16 @@ local function formatMatching(player, nlist, params, switches, nocase)
 	if next(params) == nil then
 		for i, item in ipairs(nlist) do
 			if show_descr and item.descr ~= nil then
-				table.insert(matching, item.name .. ' (' .. item.descr .. ')')
+				table.insert(matching, item.name .. " (" .. item.descr .. ")")
 			else
 				table.insert(matching, item.name)
 			end
 		end
 	else
 		if deep_search then
-			core.chat_send_player(player, '\n' .. S('Searching in names and descriptions ...'))
+			core.chat_send_player(player, "\n" .. S("Searching in names and descriptions ..."))
 		else
-			core.chat_send_player(player, '\n' .. S('Searching in names ...'))
+			core.chat_send_player(player, "\n" .. S("Searching in names ..."))
 		end
 
 		-- Fill matching list
@@ -262,7 +262,7 @@ local function formatMatching(player, nlist, params, switches, nocase)
 
 			if matches then
 				if show_descr and item.descr ~= nil then
-					table.insert(matching, item.name .. ' (' .. item.descr .. ')')
+					table.insert(matching, item.name .. " (" .. item.descr .. ")")
 				else
 					table.insert(matching, item.name)
 				end
@@ -274,9 +274,9 @@ local function formatMatching(player, nlist, params, switches, nocase)
 end
 
 
-local bullet = ''
+local bullet = ""
 if listitems.bullet_list then
-	bullet = S('•') .. ' '
+	bullet = S("•") .. " "
 end
 
 
@@ -293,7 +293,7 @@ local function displayList(player, dlist)
 		end
 	end
 	-- Show player number of items listed
-	core.chat_send_player(player, S('Objects listed:') .. ' ' .. tostring(#dlist))
+	core.chat_send_player(player, S("Objects listed:") .. " " .. tostring(#dlist))
 end
 
 
@@ -304,7 +304,7 @@ end
 -- @tparam string cmd_name
 -- @tparam table def
 local function registerChatCommand(cmd_name, def)
-	listitems.logInfo('Registering chat command "' .. cmd_name .. '"')
+	listitems.logInfo("Registering chat command \"" .. cmd_name .. "\"")
 	core.register_chatcommand(cmd_name, def)
 end
 
@@ -322,15 +322,15 @@ end
 -- @treturn boolean
 function listitems.list(player, l_type, switches, params, nocase)
 	-- Default list type is "items"
-	l_type = l_type or 'items'
+	l_type = l_type or "items"
 	nocase = nocase == nil or nocase == true
 
 	if not listContains(known_types, l_type) then
-		listitems.logWarn('listitems.list called with unknown list type: ' .. tostring(l_type))
+		listitems.logWarn("listitems.list called with unknown list type: " .. tostring(l_type))
 		return false
 	end
 
-	if type(params) == 'string' then
+	if type(params) == "string" then
 		if nocase then
 			-- Make parameters case-insensitive
 			-- FIXME: Switches should not be case-insensitive
@@ -338,20 +338,20 @@ function listitems.list(player, l_type, switches, params, nocase)
 		end
 
 		-- Split parameters into list & remove duplicates
-		params = removeListDuplicates(string.split(params, ' '))
+		params = removeListDuplicates(string.split(params, " "))
 	elseif nocase then
 		for i in pairs(params) do
 			params[i] = string.lower(params[i])
 		end
 	end
 
-	if type(switches) == 'string' then
-		switches = string.split(switches, ' ')
+	if type(switches) == "string" then
+		switches = string.split(switches, " ")
 	end
 
 	for i, s in ipairs(switches) do
 		if not listContains(known_switches, s) then
-			core.chat_send_player(player, S('Error: Unknown option:') .. ' ' .. s)
+			core.chat_send_player(player, S("Error: Unknown option:") .. " " .. s)
 			return false
 		end
 	end
@@ -372,14 +372,14 @@ end
 -- @param player
 -- @param params
 local function list(player, l_type, params)
-		local switches = string.split(params, ' ')
+		local switches = string.split(params, " ")
 
 		local type_ok = true
 		if not l_type then
-			core.chat_send_player(player, S('Error: Must specify list type'))
+			core.chat_send_player(player, S("Error: Must specify list type"))
 			type_ok = false
 		elseif not listContains(known_types, l_type) then
-			core.chat_send_player(player, S('Error: Unknown list type:') .. ' ' .. l_type)
+			core.chat_send_player(player, S("Error: Unknown list type:") .. " " .. l_type)
 			type_ok = false
 		end
 
@@ -393,14 +393,14 @@ local function list(player, l_type, params)
 
 		-- DEBUG:
 		if listitems.debug then
-			listitems.log('action', 'List type: ' .. l_type)
-			listitems.log('action', 'Switches:')
+			listitems.log("action", "List type: " .. l_type)
+			listitems.log("action", "Switches:")
 			for i, s in ipairs(switches) do
-				listitems.log('action', '  ' .. s)
+				listitems.log("action", "  " .. s)
 			end
-			listitems.log('action', 'Parameters:')
+			listitems.log("action", "Parameters:")
 			for i, p in ipairs(params) do
-				listitems.log('action', '  ' .. p)
+				listitems.log("action", "  " .. p)
 			end
 		end
 
@@ -408,12 +408,12 @@ local function list(player, l_type, params)
 end
 
 
-local help_string = S('List registered items or entities\n\n\tOptions:')
+local help_string = S("List registered items or entities\n\n\tOptions:")
 for _, o in ipairs(options) do
-	help_string = help_string .. '\n\t\t' .. o[1] .. ': ' .. o[2]
+	help_string = help_string .. "\n\t\t" .. o[1] .. ": " .. o[2]
 end
 if known_types ~= nil and #known_types > 0 then
-	help_string = help_string .. '\n\n\t' .. S('Registered types:') .. ' ' .. table.concat(known_types, ', ')
+	help_string = help_string .. "\n\n\t" .. S("Registered types:") .. " " .. table.concat(known_types, ", ")
 end
 
 --- General *list* chat command.
@@ -428,13 +428,13 @@ end
 -- @chatparam [options]
 -- @chatparam [string1] [string2] ...
 -- @treturn   boolean
-registerChatCommand('list', {
-	params = S('type') .. ' [options] [' .. S('string1') .. '] [' .. S('string2') .. '] ...',
+registerChatCommand("list", {
+	params = S("type") .. " [options] [" .. S("string1") .. "] [" .. S("string2") .. "] ...",
 	description = help_string,
 	func = function(player, params)
-		local params = string.split(params, ' ')
+		local params = string.split(params, " ")
 		local l_type = table.remove(params, 1)
-		params = table.concat(params, ' ')
+		params = table.concat(params, " ")
 
 		return list(player, l_type, params)
 	end,
