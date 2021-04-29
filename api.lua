@@ -237,6 +237,7 @@ local function formatMatching(player, nlist, params, switches, nocase)
 			end
 		end
 	else
+		-- FIXME: messages don't display until after list is loaded
 		if deep_search then
 			core.chat_send_player(player, "\n" .. S("Searching in names and descriptions ..."))
 		else
@@ -408,12 +409,14 @@ local function list(player, l_type, params)
 end
 
 
-local help_string = S("List registered items or entities\n\n\tOptions:")
+local help_string = S("List registered items or entities") .. "\n\n\t" .. S("Options:")
+local options_string = ""
 for _, o in ipairs(options) do
-	help_string = help_string .. "\n\t\t" .. o[1] .. ": " .. o[2]
+	options_string = options_string .. "\n\t\t" .. o[1] .. ": " .. o[2]
 end
+local types_string = ""
 if known_types ~= nil and #known_types > 0 then
-	help_string = help_string .. "\n\n\t" .. S("Registered types:") .. " " .. table.concat(known_types, ", ")
+	types_string = types_string .. "\n\n\t" .. S("Registered types:") .. " " .. table.concat(known_types, ", ")
 end
 
 --- General *list* chat command.
@@ -430,7 +433,7 @@ end
 -- @treturn   boolean
 registerChatCommand("list", {
 	params = S("type") .. " [options] [" .. S("string1") .. "] [" .. S("string2") .. "] ...",
-	description = help_string,
+	description = help_string .. options_string .. types_string,
 	func = function(player, params)
 		local params = string.split(params, " ")
 		local l_type = table.remove(params, 1)
@@ -439,3 +442,18 @@ registerChatCommand("list", {
 		return list(player, l_type, params)
 	end,
 })
+
+if listitems.enable_singleword then
+	for _, kt in ipairs(known_types) do
+		registerChatCommand("list" .. kt, {
+			params = "[options] [" .. S("string1") .. "] [" .. S("string2") .. "] ...",
+			description = S("List registered @1", kt) .. "\n\n\t" .. S("Options:") .. options_string,
+		func = function(player, params)
+			local params = string.split(params, " ")
+			params = table.concat(params, " ")
+
+			return list(player, kt, params)
+		end,
+		})
+	end
+end

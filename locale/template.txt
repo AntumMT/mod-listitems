@@ -2,10 +2,12 @@
 
 
 ## Help output description
+List registered @1=
 List registered items or entities=
 Display descriptions=
 Don't search descriptions=
 Registered types:=
+Options:=
 
 ## Help output parameters
 type=

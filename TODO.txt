@@ -1,3 +1,3 @@
 
-- add setting to include single word commands, e.g. /listitems
+TODO:
 - display "searching..." text before search begins, not after

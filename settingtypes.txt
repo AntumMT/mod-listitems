@@ -1,3 +1,6 @@
 
 # Displays items in a bulleted list.
 listitems.bullet_list (Bulleted list) bool true
+
+# Registers "/list<type>" commands.
+listitems.enable_singleword (Enable singleword commands) bool true
