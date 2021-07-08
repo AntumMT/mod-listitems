@@ -48,7 +48,7 @@ listitems.enable_singleword
 
 ### Links:
 
-- [API Documentation](https://antummt.github.io/mod-listitems/docs/api.html)
+- [API Documentation](https://antummt.github.io/mod-listitems/docs/)
 - [Changelog](changelog.txt)
 - [TODO](TODO.txt)
 

@@ -7,6 +7,6 @@ CONFIG="${DOCS}/config.ld"
 cd "${ROOT}"
 
 # Clean old files
-rm -rf "${DOCS}/api.html" "${DOCS}/scripts" "${DOCS}/modules" "${DOCS}/topics"
+rm -rf "${DOCS}/index.html" "${DOCS}/scripts" "${DOCS}/modules" "${DOCS}/topics"
 # Create new files
-ldoc -c "${CONFIG}" -d "${DOCS}" -o "api" "${ROOT}"
+ldoc -c "${CONFIG}" -d "${DOCS}" "${ROOT}"
