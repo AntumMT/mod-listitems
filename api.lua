@@ -9,7 +9,7 @@
 
 --- List Items API
 --
--- @script api.lua
+-- @topic api
 
 
 local S = core.get_translator(listitems.modname)

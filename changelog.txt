@@ -3,6 +3,7 @@ v0.8
 ----
 - fixed "searching" message to display before search begins
 
+
 v0.7
 ----
 - always register "mobs" type if mobs mod available
