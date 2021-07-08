@@ -53,7 +53,7 @@ local function extractSwitches(plist)
 		end
 	end
 
-	return {switches, params}
+	return switches, params
 end
 
 
@@ -79,9 +79,8 @@ local function list(player, l_type, params)
 			return false
 		end
 
-		switches = extractSwitches(switches)
-		params = li.removeListDuplicates(switches[2])
-		switches = switches[1]
+		switches, params = extractSwitches(switches)
+		params = li.removeListDuplicates(params)
 
 		-- DEBUG:
 		if listitems.debug then
