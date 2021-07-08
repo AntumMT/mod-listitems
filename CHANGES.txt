@@ -1,43 +1,50 @@
 
-0.7
-- Always register "mobs" type if mobs mod available
-- More detailed help output
-- Include descriptions in search criterea (disabled with "-s")
-- Re-implemented singleword commands (can be disabled in config)
+v0.7
+----
+- always register "mobs" type if mobs mod available
+- more detailed help output
+- include descriptions in search criterea (disabled with "-s")
+- re-implemented singleword commands (can be disabled in config)
 
 
-0.6
-- Use Minetest's built-in translation system instead of intllib
-- Show optional switches in help output
-- Use case-insensitive parsing
-- Disallow unregistered list types
-- Register "list" command to be invoked "/list <type>"
-- Removed singleword "/list<type>" format
-- Support listing registered entities
-- Support listing registered ores
-- Support listing registered nodes
-- Support listing registered tools
-- Support listing registered mobs when "mobs" mod available
+v0.6
+----
+- use Minetest's built-in translation system instead of intllib
+- show optional switches in help output
+- use case-insensitive parsing
+- disallow unregistered list types
+- register "list" command to be invoked "/list <type>"
+- removed singleword "/list<type>" format
+- support listing registered entities
+- support listing registered ores
+- support listing registered nodes
+- support listing registered tools
+- support listing registered mobs when "mobs" mod available
 
 
-0.5
+v0.5
+----
 - "-v" switch can be used to display descriptions when available
-- Fixed bug when invoking command without parameters
+- fixed bug when invoking command without parameters
 
 
-0.4
-- Added setting to enable/disable using bulleted list
+v0.4
+----
+- added setting to enable/disable using bulleted list
 
 
-0.3
-- Added support for intllib
+v0.3
+----
+- added support for intllib
 
 
-0.2
-- Output bulleted list
-- Total listed items shown at end of output
+v0.2
+----
+- output bulleted list
+- total listed items shown at end of output
 
 
-0.1
-- Initial release
-- Chat command to list registered items
+v0.1
+----
+- initial release
+- chat command to list registered items
