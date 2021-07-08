@@ -96,7 +96,26 @@ local function list(player, l_type, params)
 			end
 		end
 
-		return listitems.list(player, l_type, switches, params)
+		local deep_search = true
+		for _, sw in ipairs(switches) do
+			if sw == "-s" then
+				deep_search = false
+				break
+			end
+		end
+
+		if deep_search then
+			core.chat_send_player(player, "\n" .. S("Searching in names and descriptions ..."))
+		else
+			core.chat_send_player(player, "\n" .. S("Searching in names ..."))
+		end
+
+		-- let "searching" messages display before executing search
+		core.after(0, function()
+			return listitems.list(player, l_type, switches, params)
+		end)
+
+		return true
 end
 
 

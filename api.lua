@@ -200,13 +200,6 @@ local function formatMatching(player, nlist, params, switches, nocase)
 			end
 		end
 	else
-		-- FIXME: messages don't display until after list is loaded
-		if deep_search then
-			core.chat_send_player(player, "\n" .. S("Searching in names and descriptions ..."))
-		else
-			core.chat_send_player(player, "\n" .. S("Searching in names ..."))
-		end
-
 		-- Fill matching list
 		for i, item in ipairs(nlist) do
 			local name = item.name
