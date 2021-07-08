@@ -15,7 +15,7 @@
 local S = core.get_translator(listitems.modname)
 
 
-local li = listitems
+local aux = dofile(listitems.modpath .. "/helpers.lua")
 
 
 --- Checks if a parameter is a switch beginning with "-".
@@ -70,7 +70,7 @@ local function list(player, l_type, params)
 		if not l_type then
 			core.chat_send_player(player, S("Error: Must specify list type"))
 			type_ok = false
-		elseif not li.listContains(li.known_types, l_type) then
+		elseif not aux.listContains(aux.known_types, l_type) then
 			core.chat_send_player(player, S("Error: Unknown list type:") .. " " .. l_type)
 			type_ok = false
 		end
@@ -80,7 +80,7 @@ local function list(player, l_type, params)
 		end
 
 		switches, params = extractSwitches(switches)
-		params = li.removeListDuplicates(params)
+		params = aux.removeListDuplicates(params)
 
 		-- DEBUG:
 		if listitems.debug then
@@ -132,12 +132,12 @@ end
 
 local help_string = S("List registered items or entities") .. "\n\n\t" .. S("Options:")
 local options_string = ""
-for _, o in ipairs(li.options) do
-	options_string = options_string .. "\n\t\t" .. o[1] .. ": " .. o[2]
+for k, v in pairs(aux.options) do
+	options_string = options_string .. "\n\t\t" .. k .. ": " .. v.description
 end
 local types_string = ""
-if li.known_types ~= nil and #li.known_types > 0 then
-	types_string = types_string .. "\n\n\t" .. S("Registered types:") .. " " .. table.concat(li.known_types, ", ")
+if aux.known_types ~= nil and #aux.known_types > 0 then
+	types_string = types_string .. "\n\n\t" .. S("Registered types:") .. " " .. table.concat(aux.known_types, ", ")
 end
 
 
@@ -167,7 +167,7 @@ registerChatCommand("list", {
 
 
 if listitems.enable_singleword then
-	for _, kt in ipairs(li.known_types) do
+	for _, kt in ipairs(aux.known_types) do
 		registerChatCommand("list" .. kt, {
 			params = "[options] [" .. S("string1") .. "] [" .. S("string2") .. "] ...",
 			description = S("List registered @1", kt) .. "\n\n\t" .. S("Options:") .. options_string,

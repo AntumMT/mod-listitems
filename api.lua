@@ -15,56 +15,15 @@
 local S = core.get_translator(listitems.modname)
 
 
-local li = listitems
+local aux = dofile(listitems.modpath .. "/helpers.lua")
 
-local sw_verbose = {"-v", S("Display descriptions")}
-local sw_shallow = {"-s", S("Don't search descriptions")}
-li.options = {
-	sw_verbose,
-	sw_shallow,
-}
-
---- Valid option switches.
---
--- @table known_switches
--- @local
 local known_switches = {}
-for _, o in ipairs(li.options) do
-	table.insert(known_switches, o[1])
+for k in pairs(aux.options) do
+	table.insert(known_switches, k)
 end
-
---- Valid list types.
---
--- @table known_types
--- @local
-li.known_types = {
-	"items",
-	"entities",
-	"nodes",
-	"ores",
-	"tools",
-}
 
 if core.global_exists("mobs") then
-	table.insert(li.known_types, "mobs")
-end
-
-
---- Checks if value is contained in list.
---
--- @function li.listContains
--- @local
--- @tparam table tlist List to be iterated.
--- @tparam string v String to search for in list.
--- @treturn boolean ***true*** if string found within list.
-function li.listContains(tlist, v)
-	for index, value in ipairs(tlist) do
-		if v == value then
-			return true
-		end
-	end
-
-	return false
+	table.insert(aux.known_types, "mobs")
 end
 
 
@@ -143,26 +102,6 @@ local function compareSubstringList(ss_list, s_value)
 end
 
 
---- Replaces duplicates found in a list.
---
--- @function li.removeListDuplicates
--- @local
--- @tparam table tlist
--- @treturn table
-function li.removeListDuplicates(tlist)
-	local cleaned = {}
-	if tlist ~= nil then
-		for index, value in ipairs(tlist) do
-			if not li.listContains(cleaned, value) then
-				table.insert(cleaned, value)
-			end
-		end
-	end
-
-	return cleaned
-end
-
-
 --- Searches & formats list for matching strings.
 --
 -- @function formatMatching
@@ -182,8 +121,8 @@ local function formatMatching(player, nlist, params, switches, nocase)
 	local show_descr = false
 	local deep_search = true
 	if switches ~= nil then
-		show_descr = li.listContains(switches, sw_verbose[1])
-		deep_search = not li.listContains(switches, sw_shallow[1])
+		show_descr = aux.listContains(switches, "-v")
+		deep_search = not aux.listContains(switches, "-s")
 	end
 
 	if params == nil then
@@ -270,7 +209,7 @@ function listitems.list(player, l_type, switches, params, nocase)
 	l_type = l_type or "items"
 	nocase = nocase == nil or nocase == true
 
-	if not li.listContains(li.known_types, l_type) then
+	if not aux.listContains(aux.known_types, l_type) then
 		listitems.logWarn("listitems.list called with unknown list type: " .. tostring(l_type))
 		return false
 	end
@@ -283,7 +222,7 @@ function listitems.list(player, l_type, switches, params, nocase)
 		end
 
 		-- Split parameters into list & remove duplicates
-		params = li.removeListDuplicates(string.split(params, " "))
+		params = aux.removeListDuplicates(string.split(params, " "))
 	elseif nocase then
 		for i in pairs(params) do
 			params[i] = string.lower(params[i])
@@ -295,7 +234,7 @@ function listitems.list(player, l_type, switches, params, nocase)
 	end
 
 	for i, s in ipairs(switches) do
-		if not li.listContains(known_switches, s) then
+		if not aux.listContains(known_switches, s) then
 			core.chat_send_player(player, S("Error: Unknown option:") .. " " .. s)
 			return false
 		end
