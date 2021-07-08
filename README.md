@@ -48,11 +48,10 @@ listitems.enable_singleword
 
 ### Links:
 
-- [API Documentation](https://antummt.github.io/mod-listitems/api.html)
+- [API Documentation](https://antummt.github.io/mod-listitems/docs/api.html)
 - [Changelog](changelog.txt)
 - [TODO](TODO.txt)
 
 
 [Minetest]: http://www.minetest.net/
-[intllib]: https://forum.minetest.net/viewtopic.php?t=4929
 [mobs_redo]: https://forum.minetest.net/viewtopic.php?t=9917
