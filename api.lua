@@ -12,12 +12,14 @@
 -- @script api.lua
 
 
-local S = core.get_translator()
+local S = core.get_translator(listitems.modname)
 
+
+local li = listitems
 
 local sw_verbose = {"-v", S("Display descriptions")}
 local sw_shallow = {"-s", S("Don't search descriptions")}
-local options = {
+li.options = {
 	sw_verbose,
 	sw_shallow,
 }
@@ -27,7 +29,7 @@ local options = {
 -- @table known_switches
 -- @local
 local known_switches = {}
-for _, o in ipairs(options) do
+for _, o in ipairs(li.options) do
 	table.insert(known_switches, o[1])
 end
 
@@ -35,7 +37,7 @@ end
 --
 -- @table known_types
 -- @local
-local known_types = {
+li.known_types = {
 	"items",
 	"entities",
 	"nodes",
@@ -44,33 +46,18 @@ local known_types = {
 }
 
 if core.global_exists("mobs") then
-	table.insert(known_types, "mobs")
-end
-
-
---- Checks if a parameter is a switch beginning with "-".
---
--- @function isSwitch
--- @local
--- @tparam string param String that is checked for dash prefix.
--- @treturn boolean ***true*** if parameter type is "switch" prefixed with dash.
-local function isSwitch(param)
-	if param then
-		return #param == 2 and string.find(param, "-") == 1
-	end
-
-	return false
+	table.insert(li.known_types, "mobs")
 end
 
 
 --- Checks if value is contained in list.
 --
--- @function listContains
+-- @function li.listContains
 -- @local
 -- @tparam table tlist List to be iterated.
 -- @tparam string v String to search for in list.
 -- @treturn boolean ***true*** if string found within list.
-local function listContains(tlist, v)
+function li.listContains(tlist, v)
 	for index, value in ipairs(tlist) do
 		if v == value then
 			return true
@@ -156,41 +143,17 @@ local function compareSubstringList(ss_list, s_value)
 end
 
 
---- Extracts switches prefixed with "-" from parameter list.
---
--- @function extractSwitches
--- @local
--- @tparam table plist
--- @treturn table
-local function extractSwitches(plist)
-	local switches = {}
-	local params = {}
-	if plist ~= nil then
-		for i, p in ipairs(plist) do
-			-- Check if string starts with "-"
-			if isSwitch(p) then
-				table.insert(switches, p)
-			else
-				table.insert(params, p)
-			end
-		end
-	end
-
-	return {switches, params}
-end
-
-
 --- Replaces duplicates found in a list.
 --
--- @function removeListDuplicates
+-- @function li.removeListDuplicates
 -- @local
 -- @tparam table tlist
 -- @treturn table
-local function removeListDuplicates(tlist)
+function li.removeListDuplicates(tlist)
 	local cleaned = {}
 	if tlist ~= nil then
 		for index, value in ipairs(tlist) do
-			if not listContains(cleaned, value) then
+			if not li.listContains(cleaned, value) then
 				table.insert(cleaned, value)
 			end
 		end
@@ -219,8 +182,8 @@ local function formatMatching(player, nlist, params, switches, nocase)
 	local show_descr = false
 	local deep_search = true
 	if switches ~= nil then
-		show_descr = listContains(switches, sw_verbose[1])
-		deep_search = not listContains(switches, sw_shallow[1])
+		show_descr = li.listContains(switches, sw_verbose[1])
+		deep_search = not li.listContains(switches, sw_shallow[1])
 	end
 
 	if params == nil then
@@ -298,18 +261,6 @@ local function displayList(player, dlist)
 end
 
 
---- Custom registration function for chat commands.
---
--- @function registerChatCommand
--- @local
--- @tparam string cmd_name
--- @tparam table def
-local function registerChatCommand(cmd_name, def)
-	listitems.logInfo("Registering chat command \"" .. cmd_name .. "\"")
-	core.register_chatcommand(cmd_name, def)
-end
-
-
 --- *listitems* base function.
 --
 -- Lists registered items or entities.
@@ -326,7 +277,7 @@ function listitems.list(player, l_type, switches, params, nocase)
 	l_type = l_type or "items"
 	nocase = nocase == nil or nocase == true
 
-	if not listContains(known_types, l_type) then
+	if not li.listContains(li.known_types, l_type) then
 		listitems.logWarn("listitems.list called with unknown list type: " .. tostring(l_type))
 		return false
 	end
@@ -339,7 +290,7 @@ function listitems.list(player, l_type, switches, params, nocase)
 		end
 
 		-- Split parameters into list & remove duplicates
-		params = removeListDuplicates(string.split(params, " "))
+		params = li.removeListDuplicates(string.split(params, " "))
 	elseif nocase then
 		for i in pairs(params) do
 			params[i] = string.lower(params[i])
@@ -351,7 +302,7 @@ function listitems.list(player, l_type, switches, params, nocase)
 	end
 
 	for i, s in ipairs(switches) do
-		if not listContains(known_switches, s) then
+		if not li.listContains(known_switches, s) then
 			core.chat_send_player(player, S("Error: Unknown option:") .. " " .. s)
 			return false
 		end
@@ -363,97 +314,4 @@ function listitems.list(player, l_type, switches, params, nocase)
 	displayList(player, matched_items)
 
 	return true
-end
-
-
---- Helper function called from within chat commands.
---
--- @function list
--- @local
--- @param player
--- @param params
-local function list(player, l_type, params)
-		local switches = string.split(params, " ")
-
-		local type_ok = true
-		if not l_type then
-			core.chat_send_player(player, S("Error: Must specify list type"))
-			type_ok = false
-		elseif not listContains(known_types, l_type) then
-			core.chat_send_player(player, S("Error: Unknown list type:") .. " " .. l_type)
-			type_ok = false
-		end
-
-		if not type_ok then
-			return false
-		end
-
-		switches = extractSwitches(switches)
-		params = removeListDuplicates(switches[2])
-		switches = switches[1]
-
-		-- DEBUG:
-		if listitems.debug then
-			listitems.log("action", "List type: " .. l_type)
-			listitems.log("action", "Switches:")
-			for i, s in ipairs(switches) do
-				listitems.log("action", "  " .. s)
-			end
-			listitems.log("action", "Parameters:")
-			for i, p in ipairs(params) do
-				listitems.log("action", "  " .. p)
-			end
-		end
-
-		return listitems.list(player, l_type, switches, params)
-end
-
-
-local help_string = S("List registered items or entities") .. "\n\n\t" .. S("Options:")
-local options_string = ""
-for _, o in ipairs(options) do
-	options_string = options_string .. "\n\t\t" .. o[1] .. ": " .. o[2]
-end
-local types_string = ""
-if known_types ~= nil and #known_types > 0 then
-	types_string = types_string .. "\n\n\t" .. S("Registered types:") .. " " .. table.concat(known_types, ", ")
-end
-
---- General *list* chat command.
---
--- Options:
---
--- - -v (verbose) Display descriptions.
--- - -s (shallow) Don't search descriptions.
---
--- @chatcmd   list
--- @chatparam type
--- @chatparam [options]
--- @chatparam [string1] [string2] ...
--- @treturn   boolean
-registerChatCommand("list", {
-	params = S("type") .. " [options] [" .. S("string1") .. "] [" .. S("string2") .. "] ...",
-	description = help_string .. options_string .. types_string,
-	func = function(player, params)
-		local params = string.split(params, " ")
-		local l_type = table.remove(params, 1)
-		params = table.concat(params, " ")
-
-		return list(player, l_type, params)
-	end,
-})
-
-if listitems.enable_singleword then
-	for _, kt in ipairs(known_types) do
-		registerChatCommand("list" .. kt, {
-			params = "[options] [" .. S("string1") .. "] [" .. S("string2") .. "] ...",
-			description = S("List registered @1", kt) .. "\n\n\t" .. S("Options:") .. options_string,
-		func = function(player, params)
-			local params = string.split(params, " ")
-			params = table.concat(params, " ")
-
-			return list(player, kt, params)
-		end,
-		})
-	end
 end

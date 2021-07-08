@@ -41,6 +41,7 @@ local scripts = {
 	"settings",
 	"logging",
 	"api",
+	"chat",
 }
 
 for index, script in ipairs(scripts) do
