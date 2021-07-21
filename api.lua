@@ -59,6 +59,7 @@ local function getRegistered(r_type)
 	for name, def in pairs(o_temp) do
 		-- Ore names are located in the "ore" field of the table
 		if r_type == "ores" then
+			def.description = S("ID: @1", name)
 			name = def.ore
 		elseif r_type == "mobs" then
 			def = {}
