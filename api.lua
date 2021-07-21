@@ -243,7 +243,10 @@ function listitems.list(player, l_type, switches, params, nocase)
 	local all_objects = getRegistered(l_type)
 	local matched_items = formatMatching(player, all_objects, params, switches, nocase)
 
-	displayList(player, matched_items)
+	if l_type == "ores" then
+		matched_items = aux.removeListDuplicates(matched_items)
+	end
 
+	displayList(player, matched_items)
 	return true
 end
