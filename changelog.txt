@@ -1,4 +1,9 @@
 
+next
+----
+- added missing "textdomain" line to localization files
+
+
 v1.0
 ----
 - fixed "searching" message to display before search begins

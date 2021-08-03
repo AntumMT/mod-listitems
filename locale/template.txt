@@ -1,4 +1,6 @@
-# Translation by
+# textdomain:listitems
+
+# Translators:
 
 
 ## Help output description
