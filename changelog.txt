@@ -3,6 +3,7 @@ next
 ----
 - added missing "textdomain" line to localization files
 - updated localization template & Spanish translation
+- fixed "listmobs" command
 
 
 v1.0
