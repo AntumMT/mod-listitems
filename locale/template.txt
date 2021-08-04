@@ -13,8 +13,17 @@ Options:=
 
 ## Help output parameters
 type=
+options=
 string1=
 string2=
+
+## Types
+items=
+entities=
+nodes=
+ores=
+tools=
+mobs=
 
 ## Error output
 Error: Unknown option:=
