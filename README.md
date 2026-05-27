@@ -49,6 +49,12 @@ listitems.enable_singleword
 
 ### Links:
 
+- [![ContentDB](https://content.luanti.org/packages/AntumDeluge/listitems/shields/title/)][ContentDB]
+- [Forum](https://forum.luanti.org/viewtopic.php?t=18049)
+- Git repos:
+    - [Codeberg](https://codeberg.org/AntumLuanti/mod-listitems)
+    - [GitHub](https://github.com/AntumMT/mod-listitems)
+    - [GitLab](https://gitlab.com/AntumMT/mod-listitems)
 - [API Documentation](https://antummt.github.io/mod-listitems/docs/)
 - [Changelog](changelog.txt)
 - [TODO](TODO.txt)
