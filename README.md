@@ -44,7 +44,7 @@ listitems.enable_singleword
 - Luanti minimum version: 5.0
 - Dependencies: none
 - Optional depends:
-	- [mobs_redo][] *(adds "list mobs" chat command)*
+    - [![mobs_redo](https://content.luanti.org/packages/TenPlus1/mobs/shields/title/)](https://content.luanti.org/packages/TenPlus1/mobs/) *(adds "list mobs" chat command)*
 - Privileges: none
 
 ### Links:
@@ -61,4 +61,3 @@ listitems.enable_singleword
 
 
 [Luanti]: https://www.luanti.org/
-[mobs_redo]: https://forum.minetest.net/viewtopic.php?t=9917
