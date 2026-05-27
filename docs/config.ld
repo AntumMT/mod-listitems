@@ -52,7 +52,7 @@ local function chatcmd_handler(item)
 	for i, p in ipairs(item.tags.chatparam) do
 		output = output .. ' ' .. p
 	end
-	
+
 	return output
 end
 
@@ -67,7 +67,7 @@ function custom_display_name_handler(item, default_handler)
 		print('Is list')
 	end
 	]]
-	
+
 	return default_handler(item)
 end
 
