@@ -1,0 +1,19 @@
+{
+	"type": "MOD",
+	"title": "List Items Chat Command",
+	"name": "listitems",
+	"short_description": "Chat command that lists registered items & entities.",
+	"dev_state": "MAINTENANCE_ONLY",
+	"ai_disclosure": "NONE",
+	"tags": ["chat", "developer_tools"],
+	"content_warnings": null,
+	"license": "MIT",
+	"media_license": "MIT",
+	"repo": "https://codeberg.org/AntumLuanti/mod-listitems",
+	"website": null,
+	"issue_tracker": "https://codeberg.org/AntumLuanti/mod-listitems/issues",
+	"forums": "18049",
+	"video_url": null,
+	"donate_url": null,
+	"translation_url": null
+}
