@@ -1,8 +1,9 @@
-## List Items chat command for Minetest
+## List Items Chat Command
 
 ### Description:
 
-A mod for [Minetest][] that adds a command for listing registered items, entities, & nodes.
+A mod for [Luanti] (formerly Minetest) that adds a command for listing registered items, entities, &
+nodes.
 
 ![screenshot](screenshot.png)
 
@@ -40,7 +41,7 @@ listitems.enable_singleword
 
 ### Requirements:
 
-- Minetest minimum version: 5.0
+- Luanti minimum version: 5.0
 - Dependencies: none
 - Optional depends:
 	- [mobs_redo][] *(adds "list mobs" chat command)*
@@ -53,5 +54,5 @@ listitems.enable_singleword
 - [TODO](TODO.txt)
 
 
-[Minetest]: http://www.minetest.net/
+[Luanti]: https://www.luanti.org/
 [mobs_redo]: https://forum.minetest.net/viewtopic.php?t=9917

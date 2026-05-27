@@ -1,4 +1,4 @@
-title = 'List Items mod for Minetest'
+title = 'List Items mod for Luanti'
 project = 'listitems'
 format = 'markdown'
 not_luadoc = true
