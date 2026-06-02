@@ -3,7 +3,7 @@
 	"title": "List Items Chat Command",
 	"name": "listitems",
 	"short_description": "Chat command that lists registered items, entities, & biomes.",
-	"dev_state": "MAINTENANCE_ONLY",
+	"dev_state": "ACTIVELY_DEVELOPED",
 	"ai_disclosure": "NONE",
 	"tags": ["chat", "developer_tools"],
 	"content_warnings": null,
