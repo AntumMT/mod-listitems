@@ -4,7 +4,6 @@ TODO:
 - optimize search with regular expressions
 - clean up & optimize code
 - add support for:
-	- biomes
 	- aliases
 	- craftitems
 	- object_refs
