@@ -130,7 +130,7 @@ local function registerChatCommand(cmd_name, def)
 end
 
 
-local help_string = S("List registered items or entities") .. "\n\n\t" .. S("Options:")
+local help_string = S("List registered items, entities, or biomes") .. "\n\n\t" .. S("Options:")
 local options_string = ""
 for k, v in pairs(aux.options) do
 	options_string = options_string .. "\n\t\t" .. k .. ": " .. v.description

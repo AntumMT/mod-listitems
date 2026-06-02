@@ -17,6 +17,7 @@ local known_types = {
 	"nodes",
 	"ores",
 	"tools",
+	"biomes"
 }
 
 if core.global_exists("mobs") then

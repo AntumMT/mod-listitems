@@ -46,6 +46,8 @@ local function getRegistered(r_type)
 		o_temp = core.registered_ores
 	elseif r_type == "tools" then
 		o_temp = core.registered_tools
+	elseif r_type == "biomes" then
+		o_temp = core.registered_biomes
 	elseif r_type == "mobs" then
 		o_temp = mobs.spawning_mobs
 	else

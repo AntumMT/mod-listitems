@@ -2,7 +2,7 @@
 	"type": "MOD",
 	"title": "List Items Chat Command",
 	"name": "listitems",
-	"short_description": "Chat command that lists registered items & entities.",
+	"short_description": "Chat command that lists registered items, entities, & biomes.",
 	"dev_state": "MAINTENANCE_ONLY",
 	"ai_disclosure": "NONE",
 	"tags": ["chat", "developer_tools"],

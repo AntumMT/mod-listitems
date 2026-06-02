@@ -5,7 +5,7 @@
 
 ## Help output description
 List registered @1=Listar registro de @1
-List registered items or entities=Listar los artículos o los entidades registrados
+List registered items, entities, or biomes=Listar artículos, entidades o biomas registrados
 Display descriptions=Mostrar descripciones
 Don't search descriptions=No analizar descripciones
 Registered types:=Tipos registrados:

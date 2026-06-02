@@ -1,4 +1,9 @@
 
+2026-06-01
+----------
+- support listing registered biomes
+
+
 2025-01-11
 ----------
 - deprecation fixes
